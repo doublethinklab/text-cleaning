@@ -6,7 +6,13 @@ class RemoveTrailingApostropheS(ReplaceInText):
 
     def __init__(self):
         super().__init__(replacement='')
-        self.regex = r"[\w]+(?P<target>['’]s)([\s%s]|$)" % chars.punctuation
+        self.regex = r"[\w]+" \
+                     r"(?P<target>['’]s)" \
+                     r"([\s%s]|$)" % chars.word_end_punct
 
     def clean(self, text: str, **kwargs) -> str:
-        return self.replace_all(self.regex, '', text)
+        text = self.replace_all(
+            regex=self.regex,
+            text=text,
+            replacement=self.replacement)
+        return text

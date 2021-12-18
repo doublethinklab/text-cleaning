@@ -11,3 +11,10 @@ class TestRemoveTrailingApostropheS(unittest.TestCase):
         result = remove(text)
         expected = 'It just not it.'
         self.assertEqual(expected, result)
+
+    def test_case_2(self):
+        remove = RemoveTrailingApostropheS()
+        text = "It's Tim's."
+        result = remove(text)
+        expected = 'It Tim.'
+        self.assertEqual(expected, result)

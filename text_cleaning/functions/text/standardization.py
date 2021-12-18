@@ -1,5 +1,6 @@
 from typing import Dict, List, Optional
 
+from text_cleaning import chars
 from text_cleaning.functions.base import CleanText
 
 
@@ -17,13 +18,13 @@ class StandardizeText(CleanText):
 
     @staticmethod
     def _get_regex(original: str) -> str:
-        return r'([\s,."\'¡¿，。！？『｛（：；:]|^)+' \
+        return r'([\s%s]|^)+' \
                r'(?P<target>%s)' \
-               r'([\s,."\'!?，。！？』｝）：；;]|$)+' \
-               % original
+               r'([\s%s]|$)+' \
+               % (chars.word_start_punct, original, chars.word_end_punct)
 
     def clean(self, text: str, **kwargs) -> str:
-        if rules is None:
+        if self.rules is None:
             return text
         for replacement, originals in self.rules.items():
             for original in originals:

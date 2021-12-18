@@ -11,6 +11,11 @@ es_punct = string.punctuation + '¡¿'
 punctuation = ''.join(list(set(en_punct + zh_punct + ja_punct + es_punct)))
 
 
+# contextual punctuation
+word_start_punct = r'\[,."\'¡¿，。！？『｛（：；:'
+word_end_punct = r'\],."\'!?，。！？』｝）：；;'
+
+
 # language specific chars
 en_chars = string.ascii_lowercase + string.ascii_uppercase
 zh_chars = r'\u4e00-\u9fff'
