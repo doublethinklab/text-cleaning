@@ -1,6 +1,6 @@
 from abc import ABC, abstractmethod
 import re
-from typing import List
+from typing import Dict, List
 
 
 class Clean(ABC):
