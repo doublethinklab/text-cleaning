@@ -8,7 +8,7 @@ from text_cleaning.functions.text import numbers as clean_text_numbers
 class ReplaceTooManyNumbers(ReplaceInTokens):
 
     def __init__(self,
-                 replacement: str = replacements.NUM,
+                 replacement: str = replacements.NUMBER,
                  ratio_threshold: float = 0.5,
                  length_threshold: int = 3):
         super().__init__(replacement=replacement)
@@ -41,7 +41,7 @@ class RemoveTooManyNumbers(ReplaceTooManyNumbers):
 class ReplaceNumbers(ReplaceInTokens):
 
     def __init__(self,
-                 replacement: str = replacements.NUM,
+                 replacement: str = replacements.NUMBER,
                  digit_threshold: int = 2,
                  split_replacement: bool = False,
                  only_numbers: bool = True):

@@ -1,12 +1,11 @@
-from typing import Dict, List
+from typing import Dict, List, Optional
 
-from text_cleaning import chars
 from text_cleaning.functions.base import CleanText
 
 
 class StandardizeText(CleanText):
 
-    def __init__(self, rules: Dict[str, List[str]]):
+    def __init__(self, rules: Optional[Dict[str, List[str]]] = None):
         # rules is a Dict like {replacement: [regexs]},
         # e.g. {'usa': ['U.S.', 'U.S.A.', ...]}
         # designed to go BEFORE lowercasing of the text,
@@ -24,6 +23,8 @@ class StandardizeText(CleanText):
                % original
 
     def clean(self, text: str, **kwargs) -> str:
+        if rules is None:
+            return text
         for replacement, originals in self.rules.items():
             for original in originals:
                 regex = self._get_regex(original)

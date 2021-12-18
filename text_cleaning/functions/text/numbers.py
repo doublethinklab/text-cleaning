@@ -7,7 +7,7 @@ from text_cleaning.functions.base import ReplaceInText
 class ReplaceNumbers(ReplaceInText):
 
     def __init__(self,
-                 replacement: str = replacements.NUM,
+                 replacement: str = replacements.NUMBER,
                  digit_threshold: int = 2,
                  split_replacement: bool = False,
                  only_numbers: bool = True):

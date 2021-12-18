@@ -1,4 +1,4 @@
 JUNK = 'junktoken'
 MENTION = 'mentiontoken'
-NUM = 'numtoken'
+NUMBER = 'numtoken'
 URL = 'urltoken'
