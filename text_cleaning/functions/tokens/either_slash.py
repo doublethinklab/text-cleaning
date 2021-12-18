@@ -11,6 +11,6 @@ class ReplaceEitherSlashWithSpace(ReplaceInTokens):
         self.regex = regexps.either_slash
 
     def clean(self, tokens: List[str], **kwargs) -> List[str]:
-        tokens = [self.replace_all(self.regex, ' ', x) for x in tokens]
+        tokens = [self.replace_all(self.regex, x, ' ') for x in tokens]
         tokens = self.split_on_space(tokens)
         return tokens

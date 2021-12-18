@@ -15,4 +15,4 @@ class ReplaceHyphenCompoundWithSpace(ReplaceInTokens):
         return tokens
 
     def clean_token(self, token: str) -> str:
-        return self.replace_all(self.regex, self.replacement, token)
+        return self.replace_all(self.regex, token, self.replacement)

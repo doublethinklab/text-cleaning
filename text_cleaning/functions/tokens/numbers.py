@@ -52,7 +52,6 @@ class ReplaceNumbers(ReplaceInTokens):
         self.clean_text = clean_text_numbers.ReplaceNumbers(
             replacement=replacement,
             min_num_digits=digit_threshold,
-            split_replacement=split_replacement,
             only_numbers=only_numbers)
 
     def clean(self, tokens: List[str], **kwargs) -> List[str]:

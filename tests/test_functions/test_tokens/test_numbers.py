@@ -1,7 +1,7 @@
 import unittest
 
-from text_cleaning.chars import NUM
-from text_cleaning.functions import ReplaceNumbers
+from text_cleaning import replacements as repl
+from text_cleaning.functions.tokens import ReplaceNumbers, ReplaceTooManyNumbers
 
 
 class TestReplaceNumbers(unittest.TestCase):
@@ -16,7 +16,7 @@ class TestReplaceNumbers(unittest.TestCase):
             only_numbers=False)
         tokens = ['10days']
         result = fn(tokens)
-        self.assertEqual(['NUMdays'], result)
+        self.assertEqual([f'{repl.NUMBER}days'], result)
 
     def test_split_replacement_splits_token(self):
         fn = ReplaceNumbers(
@@ -24,24 +24,24 @@ class TestReplaceNumbers(unittest.TestCase):
             only_numbers=False)
         tokens = ['10days']
         result = fn(tokens)
-        self.assertEqual(['NUM', 'days'], result)
+        self.assertEqual([repl.NUMBER, 'days'], result)
 
     def test_only_numbers_replaces_only_numbers(self):
         fn = ReplaceNumbers(only_numbers=True)
         tokens = ['10']
         result = fn(tokens)
-        self.assertEqual(['NUM'], result)
+        self.assertEqual([repl.NUMBER], result)
 
     def test_not_only_numbers_replaces_when_not_only_numbers(self):
         fn = ReplaceNumbers(only_numbers=False)
         text = ['10days']
         result = fn(text)
-        self.assertEqual(['NUMdays'], result)
-
-
+        self.assertEqual([f'{repl.NUMBER}days'], result)
 
     def test_case_4(self):
         tokens = ['123', '123a', 'a123', 'a123b']
         result = self.fn(tokens)
-        expected = [NUM, NUM, 'a', 'a', NUM, 'a', NUM, 'b']
+        expected = [
+            repl.NUMBER, repl.NUMBER, 'a', 'a', repl.NUMBER, 'a',
+            repl.NUMBER, 'b']
         self.assertEqual(expected, result)
