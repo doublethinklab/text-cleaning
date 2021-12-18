@@ -8,10 +8,13 @@ class Clean(ABC):
     @staticmethod
     def replace_all(regex: str, text: str, replacement: str) -> str:
         assert '(?P<target>' in regex
-        for match in re.finditer(regex, text):
+        matches = list(re.finditer(regex, text))
+        while len(matches) > 0:
+            match = matches[0]
             if 'target' in match.groupdict():
                 target = match.groupdict()['target']
                 text = text.replace(target, replacement)
+            matches = list(re.finditer(regex, text))
         return text.strip()
 
 

@@ -8,8 +8,9 @@ en_punct = string.punctuation
 zh_punct = hanzi.punctuation
 ja_punct = r'\u3000-\u303f'
 es_punct = string.punctuation + '¡¿'
-punctuation = ''.join(list(set(en_punct + zh_punct + ja_punct + es_punct)))
 
+punctuation = ''.join(list(
+    set(en_punct + zh_punct + ja_punct + es_punct).difference('3u0')))
 
 # contextual punctuation
 word_start_punct = r'\[,."\'¡¿，。！？『｛（：；:'

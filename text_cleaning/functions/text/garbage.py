@@ -31,7 +31,7 @@ class ReplaceGarbage(ReplaceInText):
         if lang.es_es in languages:
             regex += chars.es_chars
             regex += chars.en_chars
-        regex += chars.punctuation
+        regex += re.escape(chars.punctuation)
         regex += chars.digits
         regex += '\s+]'
         return regex

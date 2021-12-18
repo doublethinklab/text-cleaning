@@ -1,4 +1,5 @@
 JUNK = 'junktoken'
 MENTION = 'mentiontoken'
 NUMBER = 'numtoken'
+PUNCTUATION = 'punctuationtoken'
 URL = 'urltoken'

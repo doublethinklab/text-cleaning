@@ -51,7 +51,7 @@ class ReplaceNumbers(ReplaceInTokens):
         self.only_numbers = only_numbers
         self.clean_text = clean_text_numbers.ReplaceNumbers(
             replacement=replacement,
-            digit_threshold=digit_threshold,
+            min_num_digits=digit_threshold,
             split_replacement=split_replacement,
             only_numbers=only_numbers)
 

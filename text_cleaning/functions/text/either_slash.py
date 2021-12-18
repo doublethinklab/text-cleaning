@@ -9,4 +9,7 @@ class ReplaceEitherSlashWithSpace(ReplaceInText):
         self.regex = regexps.either_slash
 
     def clean(self, text: str, *args, **kwargs) -> str:
-        return self.replace_all(self.regex, ' ', text)
+        return self.replace_all(
+            regex=self.regex,
+            text=text,
+            replacement=self.replacement)

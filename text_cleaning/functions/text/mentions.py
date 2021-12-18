@@ -1,4 +1,6 @@
-from text_cleaning import chars, replacements
+import re
+
+from text_cleaning import regexps, replacements
 from text_cleaning.functions.base import ReplaceInText
 
 
@@ -6,9 +8,10 @@ class ReplaceMentions(ReplaceInText):
 
     def __init__(self, replacement: str = replacements.MENTION):
         super().__init__(replacement=replacement)
-        self.regex = r'[\s%s](?P<target>@[\w]+)([\s%s]|$)' \
-                     % (chars.punctuation, chars.punctuation)
+        self.regex = regexps.mention
 
     def clean(self, text: str, **kwargs) -> str:
-        return self.replace_all(self.regex, self.replacement, text)
-
+        return self.replace_all(
+            regex=self.regex,
+            text=text,
+            replacement=self.replacement)

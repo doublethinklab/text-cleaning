@@ -38,23 +38,7 @@ class TestReplaceNumbers(unittest.TestCase):
         result = fn(text)
         self.assertEqual(['NUMdays'], result)
 
-    def test_case_1(self):
-        text = 'Iam10yearsexperienced.'
-        result = self.fn(text)
-        expected = f'Iam{NUM}yearsexperienced.'
-        self.assertEqual(expected, result)
 
-    def test_case_2(self):
-        text = 'Iam100000000000000yearsexperienced.'
-        result = self.fn(text)
-        expected = f'Iam{NUM}yearsexperienced.'
-        self.assertEqual(expected, result)
-
-    def test_case_3(self):
-        text = 'Iam０１yearsexperienced.'
-        result = self.fn(text)
-        expected = f'Iam{NUM}yearsexperienced.'
-        self.assertEqual(expected, result)
 
     def test_case_4(self):
         tokens = ['123', '123a', 'a123', 'a123b']
