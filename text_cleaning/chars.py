@@ -3,12 +3,6 @@ import string
 from zhon import hanzi
 
 
-# replacement chars
-URL = 'URL'
-NUM = 'NUM'
-JUNK = 'JUNK'
-
-
 # punctuation
 en_punct = string.punctuation
 zh_punct = hanzi.punctuation

@@ -63,7 +63,7 @@ class StandardZhTokensCleaningPipeline(CleaningPipeline):
             ReplaceUrls(),
             RemovePunctuation(),
             ReplaceNumbers(),
-            TraditionalToSimplified(),
+            TraditionalToSimplifiedInText(),
         ]
         super().__init__(functions)
 
@@ -84,7 +84,7 @@ class StandardZhEntityCleaningPipeline(CleaningPipeline):
     def __init__(self, normalize: Optional[Callable] = None):
         functions = [
             RemovePunctuation(),
-            TraditionalToSimplified(),
+            TraditionalToSimplifiedInText(),
         ]
         if normalize is not None:
             functions.append(normalize)
@@ -124,7 +124,7 @@ class ChineseTweetTextCleaningPipeline(CleaningPipeline):
         functions = [
             NormalizeWhitespace(),
             RemoveGarbage(languages=['zh_CN']),
-            TraditionalToSimplified(),
+            TraditionalToSimplifiedInText(),
         ]
         super().__init__(functions)
 
