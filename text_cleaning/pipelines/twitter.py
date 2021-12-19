@@ -11,16 +11,20 @@ class TwitterEnglishTextCleaningPipeline(TextCleaningPipeline):
 
     def __init__(self,
                  standardization_rules: Optional[Dict[str, List[str]]] = None,
-                 mentions_replacement: str = repl.MENTION):
+                 mentions_replacement: str = repl.MENTION,
+                 debug: bool = False):
         super().__init__(
             functions=[
                 text_fx.NormalizeWhitespace(),
                 text_fx.SingleNewlineToSpace(),
                 text_fx.RemoveTrailingApostropheS(),
-                text_fx.RemoveGarbage(languages=lang.en_us),
+                # NOTE: include Spanish so proper names aren't broken
+                text_fx.RemoveGarbage(languages=[lang.en_us, lang.es_es]),
                 text_fx.ReplaceMentions(replacement=mentions_replacement),
                 text_fx.StandardizeText(rules=standardization_rules),
-            ])
+                text_fx.LowerCase(),
+            ],
+            debug=debug)
 
 
 class TwitterEnglishTokensCleaningPipeline(TokensCleaningPipeline):
@@ -33,7 +37,8 @@ class TwitterEnglishTokensCleaningPipeline(TokensCleaningPipeline):
                  split_only_numbers: bool = True,
                  too_many_numbers_ratio_threshold: float = 0.5,
                  too_many_numbers_length_threshold: int = 3,
-                 short_token_exceptions: List[str] = ['i', 'a']):
+                 short_token_exceptions: List[str] = ['i', 'a'],
+                 debug: bool = False):
         super().__init__(
             functions=[
                 tokens_fx.RemoveUrls(),
@@ -52,4 +57,5 @@ class TwitterEnglishTokensCleaningPipeline(TokensCleaningPipeline):
                 tokens_fx.RemoveTooShortTokens(
                     min_length=min_token_length,
                     exceptions=short_token_exceptions),
-            ])
+            ],
+            debug=debug)

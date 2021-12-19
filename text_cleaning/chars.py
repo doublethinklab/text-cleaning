@@ -3,20 +3,6 @@ import string
 from zhon import hanzi
 
 
-# punctuation
-en_punct = string.punctuation
-zh_punct = hanzi.punctuation
-ja_punct = r'\u3000-\u303f'
-es_punct = string.punctuation + '¡¿'
-
-punctuation = ''.join(list(
-    set(en_punct + zh_punct + ja_punct + es_punct).difference('3u0')))
-
-# contextual punctuation
-word_start_punct = r'\[,."\'¡¿，。！？『｛（：；:'
-word_end_punct = r'\],."\'!?，。！？』｝）：；;'
-
-
 # language specific chars
 en_chars = string.ascii_lowercase + string.ascii_uppercase
 zh_chars = r'\u4e00-\u9fff'
@@ -30,6 +16,20 @@ es_chars = 'áéíóúñüÁÉÍÓÚÑÜ'
 en_digits = string.digits
 zh_digits = '０１２３４５６７８９'
 digits = en_digits + zh_digits
+
+
+# punctuation
+en_punct = string.punctuation
+zh_punct = hanzi.punctuation
+# ja_punct = r'\u3000-\u303f'  # already in hanzi.punctuation?
+es_punct = string.punctuation + '¡¿'
+# NOTE: doesn't work to add ja_punct here, just grabs the chars in the above
+punctuation = en_punct + zh_punct + es_punct
+
+
+# contextual punctuations
+word_start_punct = r'\[,."\'¡¿，。！？『｛（：；:'
+word_end_punct = r'\],."\'!?，。！？』｝）：；;'
 
 
 # sentence separators
@@ -47,6 +47,6 @@ lang_to_chars = {
 lang_to_puncts = {
     'zh_cn': en_punct + zh_punct,
     'zh_tw': en_punct + zh_punct,
-    'ja': en_punct + ja_punct,
+    'ja': en_punct + zh_punct,
     'en': en_punct,
 }

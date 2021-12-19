@@ -1,5 +1,6 @@
 import unittest
 
+from text_cleaning import languages as lang
 from text_cleaning.functions.text import RemoveGarbage
 
 
@@ -31,4 +32,12 @@ class TestRemoveGarbage(unittest.TestCase):
         text = '◆外交部abc123áéíóúñüÁÉÍÓÚÑÜ'
         result = remove(text)
         expected = 'abc123áéíóúñüÁÉÍÓÚÑÜ'
+        self.assertEqual(expected, result)
+
+    def test_hyphen_not_removed(self):
+        remove = RemoveGarbage(languages=[lang.en_us])
+        text = '24 provincial-level regions across China report zero new ' \
+               'cases of #COVID19 infection on Monday. https://t.co/SALtWuqFJP'
+        result = remove(text)
+        expected = text
         self.assertEqual(expected, result)
