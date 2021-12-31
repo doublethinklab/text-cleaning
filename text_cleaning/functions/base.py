@@ -9,16 +9,23 @@ class Clean(ABC):
         self.logger = logger
         self.debug = debug
 
-    @staticmethod
-    def replace_all(regex: str, text: str, replacement: str) -> str:
-        assert '(?P<target>' in regex
+    def look_for_matches(self, regex: str, text: str):
+        if self.debug:
+            self.logger.debug(f'Looking for regex "{regex}" in text "{text}"')
         matches = list(re.finditer(regex, text))
+        if self.debug:
+            self.logger.debug(f'Found {len(matches)} matches.')
+        return matches
+
+    def replace_all(self, regex: str, text: str, replacement: str) -> str:
+        assert '(?P<target>' in regex
+        matches = self.look_for_matches(regex, text)
         while len(matches) > 0:
             match = matches[0]
             if 'target' in match.groupdict():
                 target = match.groupdict()['target']
                 text = text.replace(target, replacement)
-            matches = list(re.finditer(regex, text))
+            matches = self.look_for_matches(regex, text)
         return text.strip()
 
 

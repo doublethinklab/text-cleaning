@@ -25,6 +25,7 @@ class TwitterEnglishTextCleaningPipeline(TextCleaningPipeline):
                 text_fx.StandardizeText(rules=standardization_rules),
                 text_fx.LowerCase(),
             ],
+            logger=logger,
             debug=debug)
 
 
@@ -60,4 +61,5 @@ class TwitterEnglishTokensCleaningPipeline(TokensCleaningPipeline):
                     min_length=min_token_length,
                     exceptions=short_token_exceptions),
             ],
+            logger=logger,
             debug=debug)
