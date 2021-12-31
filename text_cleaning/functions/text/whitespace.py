@@ -16,8 +16,8 @@ class NormalizeWhitespace(CleanText):
 
 class SingleNewlineToSpace(ReplaceInText):
 
-    def __init__(self):
-        super().__init__(replacement=' ')
+    def __init__(self, logger=None, debug: bool = False):
+        super().__init__(replacement=' ', logger=logger, debug=debug)
         self.regex = r'[^\n]+(?P<target>\n)[^\n]'
 
     def clean(self, text: str, **kwargs) -> str:

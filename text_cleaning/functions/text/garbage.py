@@ -42,5 +42,6 @@ class ReplaceGarbage(ReplaceInText):
 
 class RemoveGarbage(ReplaceGarbage):
 
-    def __init__(self, languages: List[str] = lang.supported_languages):
+    def __init__(self,
+                 languages: List[str] = lang.supported_languages):
         super().__init__(replacement='', languages=languages)
