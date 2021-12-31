@@ -27,10 +27,10 @@ class Clean(ABC):
             if 'target' in match.groupdict():
                 target = match.groupdict()['target']
                 if self.debug:
-                    self.logger.debug(f'`target` is: {target}')
+                    self.logger.debug('`target` is: %r' % target)
                 text = text.replace(target, replacement)
                 if self.debug:
-                    self.logger.debug(f'Text after replacement: {text}')
+                    self.logger.debug('Text after replacement: %r' % text)
             else:
                 if self.debug:
                     self.logger.debug('`target` not in match groupdict keys: '
