@@ -22,9 +22,20 @@ class Clean(ABC):
         matches = self.look_for_matches(regex, text)
         while len(matches) > 0:
             match = matches[0]
+            if self.debug:
+                self.logger.debug(f'Looking at first match: {match}')
             if 'target' in match.groupdict():
                 target = match.groupdict()['target']
+                if self.debug:
+                    self.logger.debug(f'`target` is: {target}')
                 text = text.replace(target, replacement)
+                if self.debug:
+                    self.logger.debug(f'Text after replacement: {text}')
+            else:
+                if self.debug:
+                    self.logger.debug('`target` not in match groupdict keys: '
+                                      '%s.'
+                                      % ', '.join(match.groupdict().keys()))
             matches = self.look_for_matches(regex, text)
         return text.strip()
 
