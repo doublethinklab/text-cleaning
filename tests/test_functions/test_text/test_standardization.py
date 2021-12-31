@@ -25,6 +25,16 @@ class TestStandardizeText(unittest.TestCase):
         expected = 'The USA government serves USA, and everyone in the USA.'
         self.assertEqual(expected, result)
 
+    def test_case_with_hyphen(self):
+        standardize = StandardizeText(
+            rules={
+                'USA': ['U.S.A', 'U.S.', 'USA', 'US', 'America'],
+            })
+        text = 'The US-made drown went down.'
+        result = standardize(text)
+        expected = 'The USA-made drown went down.'
+        self.assertEqual(expected, result)
+
     def test_debugging(self):
         standardize = StandardizeText(
             rules={

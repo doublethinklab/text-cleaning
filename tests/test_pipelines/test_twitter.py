@@ -543,7 +543,7 @@ data = [
         'tweet': "BREAKING: Yemen's Houthis down US-made drone near "
                  "Saudi border - reports https://t.co/kMBMpVWEfJ "
                  "https://t.co/4jo6vJpCUa",
-        'expected': ['breaking', 'yemen', 'houthis', 'down', 'us', 'made',
+        'expected': ['breaking', 'yemen', 'houthis', 'down', 'usa', 'made',
                      'drone', 'near', 'saudi', 'border', 'reports']
     },
     {

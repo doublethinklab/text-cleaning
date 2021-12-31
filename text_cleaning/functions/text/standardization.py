@@ -24,7 +24,7 @@ class StandardizeText(CleanText):
     def _get_regex(original: str) -> str:
         return r'([\s%s]|^)+' \
                r'(?P<target>%s)' \
-               r'([\s%s]|$)+' \
+               r'([\s%s-]|$)+' \
                % (chars.word_start_punct, original, chars.word_end_punct)
 
     def clean(self, text: str, **kwargs) -> str:
