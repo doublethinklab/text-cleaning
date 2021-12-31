@@ -6,7 +6,11 @@ from text_cleaning.functions.base import CleanText
 
 class StandardizeText(CleanText):
 
-    def __init__(self, rules: Optional[Dict[str, List[str]]] = None):
+    def __init__(self,
+                 rules: Optional[Dict[str, List[str]]] = None,
+                 logger=None,
+                 debug: bool = False):
+        super().__init__(logger, debug)
         # rules is a Dict like {replacement: [regexs]},
         # e.g. {'usa': ['U.S.', 'U.S.A.', ...]}
         # designed to go BEFORE lowercasing of the text,
@@ -29,5 +33,11 @@ class StandardizeText(CleanText):
         for replacement, originals in self.rules.items():
             for original in originals:
                 regex = self._get_regex(original)
+                if self.debug:
+                    self.logger.debug(f'Standardizing {replacement}, from: %s'
+                                      % ', '.join(originals))
+                    self.logger.debug(f'Regex: {regex}')
                 text = self.replace_all(regex, text, replacement)
+                if self.debug:
+                    self.logger.debug(f'Result: {text}')
         return text

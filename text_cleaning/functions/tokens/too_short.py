@@ -10,6 +10,7 @@ class RemoveTooShortTokens(CleanTokens):
     def __init__(self,
                  min_length: int = 2,
                  exceptions: List[str] = ['i', 'a', 'y']):
+        super().__init__()
         self.min_length = min_length
         self.exceptions = exceptions
 

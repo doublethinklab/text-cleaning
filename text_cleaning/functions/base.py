@@ -1,9 +1,13 @@
 from abc import ABC, abstractmethod
 import re
-from typing import Dict, List
+from typing import List
 
 
 class Clean(ABC):
+
+    def __init__(self, logger=None, debug: bool = False):
+        self.logger = logger
+        self.debug = debug
 
     @staticmethod
     def replace_all(regex: str, text: str, replacement: str) -> str:
@@ -57,11 +61,13 @@ class CleanTokens(Clean):
 
 class ReplaceInText(CleanText, ABC):
 
-    def __init__(self, replacement: str):
+    def __init__(self, replacement: str, logger=None, debug: bool = False):
+        super().__init__(logger, debug)
         self.replacement = replacement
 
 
 class ReplaceInTokens(CleanTokens, ABC):
 
-    def __init__(self, replacement: str):
+    def __init__(self, replacement: str, logger=None, debug: bool = False):
+        super().__init__(logger, debug)
         self.replacement = replacement
