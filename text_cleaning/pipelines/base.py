@@ -1,6 +1,8 @@
 from abc import ABC
 from typing import Callable, List, Type, Union
 
+from data_structures.nlp import Token
+
 from text_cleaning.functions.base import Clean, CleanText, CleanTokens
 
 
@@ -66,16 +68,30 @@ class TokensCleaningPipeline(CleaningPipeline):
     def __init__(self,
                  functions: List[CleanTokens],
                  logger=None,
-                 debug: bool = False):
+                 debug: bool = False,
+                 return_strings: bool = True):
         super().__init__(
             logger=logger,
             debug=debug)
         self.functions = functions
         self.pass_down_logger_and_debug_flag()
+        self.return_strings = return_strings
 
-    def __call__(self, tokens: List[str], **kwargs) -> List[str]:
+    def __call__(self, tokens: List[Union[Token, str]], **kwargs) \
+            -> List[Union[Token, str]]:
+        # if no input, just return
+        if not tokens or len(tokens) == 0:
+            return tokens
+
+        # if a list of strings is input, automatically map to Tokens to pass
+        # to the cleaning functions
+        if isinstance(tokens[0], str):
+            tokens = [Token(text=x) for x in tokens]
+
+        # clean
         for fn in self.functions:
-            tokens = fn(tokens, **kwargs)
+            tokens = fn(tokens, return_strings=self.return_strings, **kwargs)
             if self.debug:
                 self.debug_message(tokens, fn)
+
         return tokens

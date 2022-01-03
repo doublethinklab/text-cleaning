@@ -1,5 +1,7 @@
 from typing import List
 
+from data_structures.nlp import Token
+
 from text_cleaning.functions.base import CleanTokens
 
 
@@ -14,8 +16,11 @@ class RemoveTooShortTokens(CleanTokens):
         self.min_length = min_length
         self.exceptions = exceptions
 
-    def clean(self, tokens: List[str], **kwargs) -> List[str]:
+    def clean(self,
+              tokens: List[Token],
+              copy_meta_attrs_on_split: bool = False,
+              **kwargs) -> List[Token]:
         tokens = [x for x in tokens
-                  if len(x) >= self.min_length
-                  or x in self.exceptions]
+                  if len(x.text) >= self.min_length
+                  or x.text in self.exceptions]
         return tokens

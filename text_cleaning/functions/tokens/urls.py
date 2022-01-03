@@ -1,5 +1,6 @@
 from typing import List
 
+from data_structures.nlp import Token
 from textacy.preprocessing import replace
 
 from text_cleaning import replacements as repl
@@ -11,8 +12,10 @@ class ReplaceUrls(ReplaceInTokens):
     def __init__(self, replacement: str = repl.URL):
         super().__init__(replacement=replacement)
 
-    def clean(self, tokens: List[str], **kwargs) -> List[str]:
-        return [replace.urls(x, repl=self.replacement) for x in tokens]
+    def clean(self, tokens: List[Token], **kwargs) -> List[Token]:
+        for token in tokens:
+            token.text = replace.urls(token.text, repl=self.replacement)
+        return tokens
 
 
 class RemoveUrls(ReplaceUrls):

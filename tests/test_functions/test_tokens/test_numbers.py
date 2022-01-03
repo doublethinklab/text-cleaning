@@ -41,6 +41,10 @@ class TestReplaceNumbers(unittest.TestCase):
     def test_case_4(self):
         tokens = ['123', '123a', 'a123', 'a123b']
         result = self.fn(tokens)
+        # first token just maps to NUMBER
+        # second splits as NUMBER and a
+        # third as a and NUMBER
+        # fourth as a and NUMBER and b
         expected = [
             repl.NUMBER, repl.NUMBER, 'a', 'a', repl.NUMBER, 'a',
             repl.NUMBER, 'b']

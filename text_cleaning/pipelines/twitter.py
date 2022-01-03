@@ -41,7 +41,8 @@ class TwitterEnglishTokensCleaningPipeline(TokensCleaningPipeline):
                  too_many_numbers_length_threshold: int = 3,
                  short_token_exceptions: List[str] = ['i', 'a'],
                  logger=None,
-                 debug: bool = False):
+                 debug: bool = False,
+                 return_strings: bool = True):
         super().__init__(
             functions=[
                 tokens_fx.RemoveUrls(),
@@ -62,4 +63,5 @@ class TwitterEnglishTokensCleaningPipeline(TokensCleaningPipeline):
                     exceptions=short_token_exceptions),
             ],
             logger=logger,
-            debug=debug)
+            debug=debug,
+            return_strings=return_strings)

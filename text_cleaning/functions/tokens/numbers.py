@@ -1,4 +1,7 @@
+from copy import copy
 from typing import List
+
+from data_structures.nlp import Token
 
 from text_cleaning import chars, replacements
 from text_cleaning.functions.base import ReplaceInTokens
@@ -15,15 +18,20 @@ class ReplaceTooManyNumbers(ReplaceInTokens):
         self.ratio_threshold = ratio_threshold
         self.length_threshold = length_threshold
 
-    def clean(self, tokens: List[str], **kwargs) -> List[str]:
+    # TODO: when I come back - no, not in the constructor, in __call__... thanks
+
+    def clean(self,
+              tokens: List[Token],
+              copy_meta_attrs_on_split: bool = False,
+              **kwargs) -> List[Token]:
         return [self.clean_token(x) for x in tokens]
 
-    def clean_token(self, token: str) -> str:
+    def clean_token(self, token: Token) -> Token:
         if len(token) < self.length_threshold:
             return token
-        n_digits = sum(1 for c in token if c in chars.digits)
+        n_digits = sum(1 for c in token.text if c in chars.digits)
         if n_digits / len(token) > self.ratio_threshold:
-            return self.replacement
+            token.text = self.replacement
         return token
 
 
@@ -54,27 +62,55 @@ class ReplaceNumbers(ReplaceInTokens):
             min_num_digits=digit_threshold,
             only_numbers=only_numbers)
 
-    def clean(self, tokens: List[str], **kwargs) -> List[str]:
+    def clean(self,
+              tokens: List[Token],
+              copy_meta_attrs_on_split: bool = False,
+              **kwargs) -> List[Token]:
         # trick here is to make sure NUM is separated from things like 年 and 日
         repl = self.replacement
         tokens_out = []
-        for t in tokens:
-            t = self.clean_text(t)
-            if self.split_replacement and repl in t and len(t) > len(repl):
+        for token in tokens:
+            token.text = self.clean_text(token.text)
+            if self.split_replacement and repl in token.text \
+                    and len(token.text) > len(repl):
                 # case where NUM is at the start
-                if t[0:len(repl)] == repl:
-                    tokens_out.append(repl)
-                    tokens_out.append(t.replace(repl, ''))
+                if token.text[0:len(repl)] == repl:
+                    tok_repl = self.new_token_from_split(
+                        token, repl, copy_meta_attrs_on_split)
+                    token.text = token.text.replace(repl, '')
+                    tokens_out.append(tok_repl)
+                    tokens_out.append(token)
                 # case where NUM is in the middle
-                elif t[-len(repl):] != repl:
-                    tokens_out.append(t[0:t.index(repl)])
-                    tokens_out.append(repl)
-                    tokens_out.append(t[t.index(repl) + len(repl):])
+                elif token.text[-len(repl):] != repl:
+                    repl_ix = token.text.index(repl)
+                    start_tok = self.new_token_from_split(
+                        token, token.text[0:repl_ix], copy_meta_attrs_on_split)
+                    repl_tok = self.new_token_from_split(token, repl)
+                    end_tok = self.new_token_from_split(
+                        token, token.text[repl_ix + len(repl):],
+                        copy_meta_attrs_on_split)
+                    tokens_out.append(start_tok)
+                    tokens_out.append(repl_tok)
+                    tokens_out.append(end_tok)
                 # case where NUM is at the end
                 else:
-                    tokens_out.append(t.replace(repl, ''))
-                    tokens_out.append(repl)
+                    tok_repl = self.new_token_from_split(
+                        token, repl, copy_meta_attrs_on_split)
+                    token.text = token.text.replace(repl, '')
+                    tokens_out.append(token)
+                    tokens_out.append(tok_repl)
             else:
-                if t != '':
-                    tokens_out.append(t)
+                if token.text != '':
+                    tokens_out.append(token)
         return tokens_out
+
+    @staticmethod
+    def new_token_from_split(token: Token,
+                             new_text: str,
+                             copy_meta_attrs_on_split: bool = False) -> Token:
+        if copy_meta_attrs_on_split:
+            new_token = copy(token)
+            new_token.text = new_text
+        else:
+            new_token = Token(text=new_text)
+        return new_token

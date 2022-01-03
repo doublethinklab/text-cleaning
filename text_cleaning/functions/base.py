@@ -1,6 +1,8 @@
 from abc import ABC, abstractmethod
 import re
-from typing import List
+from typing import List, Union
+
+from data_structures.nlp import Token
 
 
 class Clean(ABC):
@@ -52,26 +54,62 @@ class CleanText(Clean):
 
 class CleanTokens(Clean):
 
-    def __call__(self, tokens: List[str], **kwargs) -> List[str]:
-        tokens = self.clean(tokens, **kwargs)
+    def __init__(self,
+                 logger=None,
+                 debug: bool = False):
+        super().__init__(logger, debug)
+
+    def __call__(self,
+                 tokens: List[Union[Token, str]],
+                 return_strings: bool = True,
+                 copy_meta_attrs_on_split: bool = False,
+                 **kwargs) \
+            -> List[Union[Token, str]]:
+        # if no input, just return the input
+        if not tokens or len(tokens) == 0:
+            return tokens
+
+        # if the input is strings, automatically map to tokens for the
+        # implementation of the cleaning functions
+        if isinstance(tokens[0], str):
+            tokens = [Token(text=x) for x in tokens]
+
+        # clean
+        tokens = self.clean(
+            tokens=tokens,
+            copy_meta_attrs_on_split=copy_meta_attrs_on_split,
+            **kwargs)
+
+        # drop any nulled tokens
         tokens = self.drop_null(tokens)
+
+        # map to strings if consumers requests
+        if return_strings:
+            tokens = [x.text for x in tokens]
+
         return tokens
 
     @abstractmethod
-    def clean(self, tokens: List[str], **kwargs) -> List[str]:
+    def clean(self,
+              tokens: List[Token],
+              copy_meta_attrs_on_split: bool = False,
+              **kwargs) -> List[Token]:
         raise NotImplementedError
 
     @staticmethod
-    def drop_null(tokens: List[str]) -> List[str]:
+    def drop_null(tokens: List[Token]) -> List[Token]:
         return [x for x in tokens
-                if x != '' and x is not None]
+                if x.text != '' and x.text is not None]
 
     @staticmethod
-    def split_on_space(tokens: List[str]) -> List[str]:
+    def split_on_space(tokens: List[Token],
+                       copy_meta_attrs_on_split: bool = False) -> List[Token]:
         tokens_out = []
         for x in tokens:
-            if ' ' in x:
-                tokens_out += x.split(' ')
+            if ' ' in x.text:
+                tokens_out += x.split(
+                    split_on=' ',
+                    copy_meta_attrs=copy_meta_attrs_on_split)
             else:
                 tokens_out.append(x)
         return tokens_out
@@ -86,6 +124,11 @@ class ReplaceInText(CleanText, ABC):
 
 class ReplaceInTokens(CleanTokens, ABC):
 
-    def __init__(self, replacement: str, logger=None, debug: bool = False):
-        super().__init__(logger, debug)
+    def __init__(self,
+                 replacement: str,
+                 logger=None,
+                 debug: bool = False):
+        super().__init__(
+            logger=logger,
+            debug=debug)
         self.replacement = replacement
