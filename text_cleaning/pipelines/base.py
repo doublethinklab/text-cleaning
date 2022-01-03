@@ -68,16 +68,17 @@ class TokensCleaningPipeline(CleaningPipeline):
     def __init__(self,
                  functions: List[CleanTokens],
                  logger=None,
-                 debug: bool = False,
-                 return_strings: bool = True):
+                 debug: bool = False):
         super().__init__(
             logger=logger,
             debug=debug)
         self.functions = functions
         self.pass_down_logger_and_debug_flag()
-        self.return_strings = return_strings
 
-    def __call__(self, tokens: List[Union[Token, str]], **kwargs) \
+    def __call__(self,
+                 tokens: List[Union[Token, str]],
+                 return_strings: bool = True,
+                 **kwargs) \
             -> List[Union[Token, str]]:
         # if no input, just return
         if not tokens or len(tokens) == 0:
@@ -90,7 +91,7 @@ class TokensCleaningPipeline(CleaningPipeline):
 
         # clean
         for fn in self.functions:
-            tokens = fn(tokens, return_strings=self.return_strings, **kwargs)
+            tokens = fn(tokens, return_strings=return_strings, **kwargs)
             if self.debug:
                 self.debug_message(tokens, fn)
 
