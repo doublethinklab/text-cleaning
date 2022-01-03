@@ -1,5 +1,5 @@
 from abc import ABC
-from typing import Callable, List, Union
+from typing import Callable, List, Type, Union
 
 from text_cleaning.functions.base import Clean, CleanText, CleanTokens
 
@@ -29,6 +29,13 @@ class CleaningPipeline(ABC):
         for fn in self.functions:
             fn.logger = self.logger
             fn.debug = self.debug
+
+    def remove(self, function_type: Type) -> None:
+        fn = next((x for x in self.functions
+                   if isinstance(x, function_type)),
+                  None)
+        if fn:
+            self.functions.remove(fn)
 
 
 class TextCleaningPipeline(CleaningPipeline):

@@ -1,6 +1,6 @@
 import unittest
 
-from text_cleaning.functions.text import StandardizeText
+from text_cleaning.functions.text import LowerCase, StandardizeText
 from text_cleaning.pipelines.twitter import TwitterEnglishTextCleaningPipeline
 
 
@@ -17,3 +17,13 @@ class TestPipelineBase(unittest.TestCase):
         # get it again and check debug was set
         fn = pipeline.get_function(StandardizeText)
         self.assertTrue(fn.debug)
+
+    def test_remove_function(self):
+        # use an implementation
+        pipeline = TwitterEnglishTextCleaningPipeline(debug=False)
+
+        # remove one we know is in there
+        pipeline.remove(LowerCase)
+
+        # confirm it's no longer in the functions list
+        self.assertNotIn(LowerCase, [type(x) for x in pipeline.functions])
