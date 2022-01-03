@@ -25,6 +25,9 @@ class CleaningPipeline(ABC):
             (x for x in self.functions if isinstance(x, function_type)),
             None)
 
+    def includes(self, function_type: Type) -> bool:
+        return function_type in [type(x) for x in self.functions]
+
     def pass_down_logger_and_debug_flag(self):
         for fn in self.functions:
             fn.logger = self.logger

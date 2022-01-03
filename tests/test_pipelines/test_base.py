@@ -27,3 +27,14 @@ class TestPipelineBase(unittest.TestCase):
 
         # confirm it's no longer in the functions list
         self.assertNotIn(LowerCase, [type(x) for x in pipeline.functions])
+
+    def test_includes(self):
+        # use an implementation
+        pipeline = TwitterEnglishTextCleaningPipeline(debug=False)
+
+        # one we know is in there should be detected
+        self.assertTrue(pipeline.includes(LowerCase))
+
+        # but after removal, should be false
+        pipeline.remove(LowerCase)
+        self.assertFalse(pipeline.includes(LowerCase))
