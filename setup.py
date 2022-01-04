@@ -17,13 +17,12 @@ with open('requirements.txt') as f:
 
 
 setuptools.setup(
-    name='nlp_pipeline',
+    name='text_cleaning',
     version=version,
     author='Tim Niven',
     author_email='tim@doublethinklab.org',
-    description='API and client for our NLP pipeline.',
-    url=f'https://github.com/doublethinklab/nlp-pipeline.git#{version}',
+    description='Text cleaning utilities, functions, and pipelines.',
+    url=f'https://github.com/doublethinklab/text-cleaning.git#{version}',
     packages=setuptools.find_packages(),
-    package_data={'': ['*.yml']},
     python_requires='>=3.9',
     install_requires=required)
