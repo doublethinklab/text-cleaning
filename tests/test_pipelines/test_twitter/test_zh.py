@@ -13,7 +13,9 @@ class TestTwitterMandarinTextCleaningPipeline(unittest.TestCase):
 
         }
         self.clean_text = TwitterMandarinTextCleaningPipeline(
-            standardization_rules=self.rules, debug=False)
+            standardization_rules=self.rules,
+            trad2simp=True,
+            debug=False)
 
     def _test(self, sample: Dict):
         text = self.clean_text(sample['tweet'])
@@ -54,6 +56,12 @@ text_data = [
                  '承诺，为发展中国家提供更多资源。中方提出的全球发展倡议将同联合国2030年'
                  '可持续发展议程深入对接，共同推进全球发展事业。 '
                  'https://t.co/jlXpLynHW0'
+    },
+    {
+        'tweet': '「大國建造」走進香港迪士尼 迪士尼盼迎來更多大灣區遊客 '
+                 'https://t.co/KAajTmJG04',
+        'expected': '「大国建造」走进香港迪士尼 迪士尼盼迎来更多大湾区游客 '
+                    'https://t.co/KAajTmJG04'
     },
 ]
 tokens_data = [
