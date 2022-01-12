@@ -21,6 +21,12 @@ class TestTwitterMandarinTextCleaningPipeline(unittest.TestCase):
         text = self.clean_text(sample['tweet'])
         self.assertEqual(sample['expected'], text)
 
+    def test_urls_not_destroyed_by_cleanup_garbage(self):
+        text = '「大國建造」走進香港迪士尼 迪士尼盼迎來更多大灣區遊客 ' \
+               'https://t.co/KAajTmJG04'
+        text = self.clean_text(text)
+        self.assertIn('https://t.co/KAajTmJG04', text)
+
     def test_samples(self):
         for sample in text_data:
             self._test(sample)

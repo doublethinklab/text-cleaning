@@ -34,6 +34,12 @@ class TestTwitterCleaningPipelines(unittest.TestCase):
             print(tokens)
         self.assertEqual(sample['expected'], tokens)
 
+    def test_urls_not_destroyed_by_remove_garbage(self):
+        text = 'Azar says https://t.co/CwnG8H94mh https://t.co/E1ROgNAqlw'
+        text = self.clean_text(text)
+        self.assertIn('https://t.co/cwng8h94mh', text)
+        self.assertIn('https://t.co/e1rognaqlw', text)
+
     def test_samples(self):
         for sample in data:
             self._test(sample)
