@@ -106,7 +106,7 @@ class CleanTokens(Clean):
                        copy_meta_attrs_on_split: bool = False) -> List[Token]:
         tokens_out = []
         for x in tokens:
-            if ' ' in x.text:
+            if ' ' in x.text and not x.is_entity:
                 tokens_out += x.split(
                     split_on=' ',
                     copy_meta_attrs=copy_meta_attrs_on_split)
