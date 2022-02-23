@@ -18,5 +18,6 @@ class ReplaceEitherSlashWithSpace(ReplaceInTokens):
               **kwargs) -> List[Token]:
         for token in tokens:
             token.text = self.replace_all(self.regex, token.text, ' ')
+            token.text = token.text.replace('  ', ' ')
         tokens = self.split_on_space(tokens)
         return tokens
