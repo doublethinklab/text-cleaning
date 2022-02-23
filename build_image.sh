@@ -1,3 +1,7 @@
 #!/bin/bash
 
-docker build -t doublethinklab/text-cleaning:dev .
+export DOCKER_BUILDKIT=1
+docker build \
+    --ssh github=~/.ssh/github \
+    -t doublethinklab/text-cleaning:dev \
+    .
