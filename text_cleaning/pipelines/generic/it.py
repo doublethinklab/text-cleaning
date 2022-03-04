@@ -7,7 +7,7 @@ from text_cleaning.pipelines.base import \
     TextCleaningPipeline, TokensCleaningPipeline
 
 
-class SpanishTextCleaningPipeline(TextCleaningPipeline):
+class ItalianTextCleaningPipeline(TextCleaningPipeline):
 
     def __init__(self,
                  standardization_rules: Optional[Dict[str, List[str]]] = None,
@@ -19,7 +19,7 @@ class SpanishTextCleaningPipeline(TextCleaningPipeline):
                 text_fx.NormalizeWhitespace(),
                 text_fx.SingleNewlineToSpace(),
                 text_fx.RemoveTrailingApostropheS(),
-                text_fx.RemoveGarbage(languages=[lang.en_us, lang.es_es]),
+                text_fx.RemoveGarbage(languages=[lang.en_us, lang.it_it]),
                 # text_fx.ReplaceMentions(replacement=mentions_replacement),
                 text_fx.StandardizeText(rules=standardization_rules),
                 text_fx.LowerCase(),
@@ -28,7 +28,7 @@ class SpanishTextCleaningPipeline(TextCleaningPipeline):
             debug=debug)
 
 
-class SpanishTokensCleaningPipeline(TokensCleaningPipeline):
+class ItalianTokensCleaningPipeline(TokensCleaningPipeline):
 
     def __init__(self,
                  min_token_length: int = 2,
@@ -38,7 +38,7 @@ class SpanishTokensCleaningPipeline(TokensCleaningPipeline):
                  split_only_numbers: bool = True,
                  too_many_numbers_ratio_threshold: float = 0.5,
                  too_many_numbers_length_threshold: int = 3,
-                 short_token_exceptions: List[str] = ['a'],
+                 short_token_exceptions: List[str] = ['a', 'è', 'o'],
                  logger=None,
                  debug: bool = False):
         super().__init__(

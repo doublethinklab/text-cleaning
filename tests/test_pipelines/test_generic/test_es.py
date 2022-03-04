@@ -25,14 +25,14 @@ class TestSpanishCleaningPipelines(unittest.TestCase):
 
     def _test(self, sample: Dict):
         text = self.clean_text(sample['text'])
-        tokens1 = text.split(' ')
-        tokens2 = self.clean_tokens(tokens1)
-        if tokens2 != sample['expected']:
+        tokens = text.split(' ')
+        tokens = self.clean_tokens(tokens)
+        if tokens != sample['expected']:
             print('-' * 8)
             print(sample['text'])
             print(text)
-            print(tokens1)
-        self.assertEqual(sample['expected'], tokens2)
+            print(tokens)
+        self.assertEqual(sample['expected'], tokens)
 
     def test_urls_not_destroyed_by_remove_garbage(self):
         text = 'Azar says https://t.co/CwnG8H94mh https://t.co/E1ROgNAqlw'

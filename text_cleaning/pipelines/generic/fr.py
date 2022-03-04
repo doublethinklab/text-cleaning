@@ -16,10 +16,11 @@ class FrenchTextCleaningPipeline(TextCleaningPipeline):
                  debug: bool = False):
         super().__init__(
             functions=[
+                text_fx.FrenchDeAbbreviation(),
                 text_fx.NormalizeWhitespace(),
                 text_fx.SingleNewlineToSpace(),
                 text_fx.RemoveTrailingApostropheS(),
-                text_fx.RemoveGarbage(languages=[lang.fr_fr]),
+                text_fx.RemoveGarbage(languages=[lang.en_us, lang.fr_fr]),
                 # text_fx.ReplaceMentions(replacement=mentions_replacement),
                 text_fx.StandardizeText(rules=standardization_rules),
                 text_fx.LowerCase(),
