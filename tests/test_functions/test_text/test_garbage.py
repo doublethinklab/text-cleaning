@@ -34,27 +34,6 @@ class TestRemoveGarbage(unittest.TestCase):
         expected = 'abc123áéíóúñüÁÉÍÓÚÑÜ'
         self.assertEqual(expected, result)
 
-    def test_italian_case(self):
-        remove = RemoveGarbage(languages=['it_IT'])
-        text = '◆そういう外交部abc123ÀàÈèÉéÌìÒòÙù'
-        result = remove(text)
-        expected = 'abc123ÀàÈèÉéÌìÒòÙù'
-        self.assertEqual(expected, result)
-
-    def test_arabic_case(self):
-        remove = RemoveGarbage(languages=['ar_AE'])
-        text = '◆そういう外交部abc123مراسل بي بي سي'
-        result = remove(text)
-        expected = '123مراسل بي بي سي'
-        self.assertEqual(expected, result)
-
-    def test_french_case(self):
-        remove = RemoveGarbage(languages=['fr_FR'])
-        text = '◆そういう外交部abc123ÀÂÆÇÈÉÊËÎÏÔÙÛÜŸŒœàâæçèéêëîïôùûüÿ'
-        result = remove(text)
-        expected = 'abc123ÀÂÆÇÈÉÊËÎÏÔÙÛÜŸŒœàâæçèéêëîïôùûüÿ'
-        self.assertEqual(expected, result)
-
     def test_hyphen_not_removed(self):
         remove = RemoveGarbage(languages=[lang.en_us])
         text = '24 provincial-level regions across China report zero new ' \

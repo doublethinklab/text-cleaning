@@ -6,7 +6,7 @@ from text_cleaning.pipelines.generic import \
     JapaneseTokensCleaningPipeline
 
 
-class TestJapaneseTextCleaningPipelines(unittest.TestCase):
+class TestJapaneseCleaningPipelines(unittest.TestCase):
 
     def setUp(self):
         self.rules = {
