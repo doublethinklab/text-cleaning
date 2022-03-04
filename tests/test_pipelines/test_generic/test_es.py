@@ -48,15 +48,15 @@ class TestSpanishCleaningPipelines(unittest.TestCase):
 data = [
     {
         'text': '#¿Dónde está encuentra la capital de Argentina?',
-        'expected': ['dónde', 'está', 'encentra', 'la', 'capital', 'de', 'argentina']
+        'expected': ['dónde', 'está', 'encuentra', 'la', 'capital', 'de', 'argentina']
     },
     {
         'text': 'El covid de China impide que todos viajen al extranjero',
-        'expected': ['el', 'covid19', 'de', 'china', 'impide', 'qe', 'todos', 'viajen', 'al', 'extranjero']
+        'expected': ['el', 'covid19', 'de', 'china', 'impide', 'que', 'todos', 'viajen', 'al', 'extranjero']
     },
     {
         'text': '＃环球时报Yo, señor, no soy malo, aunque no me faltarían motivos para serlo.\u3000',
-        'expected': ['yo', 'señor', 'no', 'soy', 'malo', 'anqe', 'no', 'me', 'faltarían', 'motivos', 'para', 'serlo']
+        'expected': ['yo', 'señor', 'no', 'soy', 'malo', 'aunque', 'no', 'me', 'faltarían', 'motivos', 'para', 'serlo']
     },
     {
         'text': 'https://t.co/dpyqd7ePix',
