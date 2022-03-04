@@ -26,3 +26,5 @@ from text_cleaning.functions.text.whitespace import \
     SingleNewlineToSpace
 from text_cleaning.functions.text.halfwidth import \
     NormalizeTextWidth
+from text_cleaning.functions.text.deAbbreviation import \
+    FrenchDeAbbreviation

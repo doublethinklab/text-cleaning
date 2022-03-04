@@ -16,6 +16,7 @@ class FrenchTextCleaningPipeline(TextCleaningPipeline):
                  debug: bool = False):
         super().__init__(
             functions=[
+                text_fx.FrenchDeAbbreviation(),
                 text_fx.NormalizeWhitespace(),
                 text_fx.SingleNewlineToSpace(),
                 text_fx.RemoveTrailingApostropheS(),
