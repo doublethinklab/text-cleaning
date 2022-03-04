@@ -1,6 +1,6 @@
 git+git://github.com/doublethinklab/data-structures.git#1.11.1
 jupyter==1.0.0
-opencc==1.1.3
+opencc==1.1.1
 git+git://github.com/doublethinklab/quote-extraction.git#1.0.0
 srsly==2.4.1
 textacy==0.11.0
