@@ -7,7 +7,7 @@ from text_cleaning.pipelines.base import \
     TextCleaningPipeline, TokensCleaningPipeline
 
 
-class SpanishTextCleaningPipeline(TextCleaningPipeline):
+class ItalianTextCleaningPipeline(TextCleaningPipeline):
 
     def __init__(self,
                  standardization_rules: Optional[Dict[str, List[str]]] = None,
@@ -19,16 +19,16 @@ class SpanishTextCleaningPipeline(TextCleaningPipeline):
                 text_fx.NormalizeWhitespace(),
                 text_fx.SingleNewlineToSpace(),
                 text_fx.RemoveTrailingApostropheS(),
-                text_fx.RemoveGarbage(languages=[lang.en_us, lang.es_es]),
+                text_fx.RemoveGarbage(languages=[lang.en_us, lang.it_it]),
                 # text_fx.ReplaceMentions(replacement=mentions_replacement),
                 text_fx.StandardizeText(rules=standardization_rules),
-                text_fx.LowerCase(),
+                # text_fx.LowerCase(),
             ],
             logger=logger,
             debug=debug)
 
 
-class SpanishTokensCleaningPipeline(TokensCleaningPipeline):
+class ItalianTokensCleaningPipeline(TokensCleaningPipeline):
 
     def __init__(self,
                  min_token_length: int = 2,

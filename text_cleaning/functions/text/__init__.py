@@ -24,3 +24,5 @@ from text_cleaning.functions.text.trad2simp import \
 from text_cleaning.functions.text.whitespace import \
     NormalizeWhitespace, \
     SingleNewlineToSpace
+from text_cleaning.functions.text.halfwidth import \
+    NormalizeTextWidth
