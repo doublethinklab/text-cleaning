@@ -15,6 +15,7 @@ class NormalizeWhitespace(CleanText):
 
 
 class SingleNewlineToSpace(ReplaceInText):
+    # TODO: this is very slow
 
     def __init__(self, logger=None, debug: bool = False):
         super().__init__(replacement=' ', logger=logger, debug=debug)

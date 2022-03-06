@@ -1,4 +1,5 @@
 from abc import ABC
+import time
 from typing import Callable, List, Type, Union
 
 from data_structures.nlp import Token
@@ -48,18 +49,26 @@ class TextCleaningPipeline(CleaningPipeline):
     def __init__(self,
                  functions: List[CleanText],
                  logger=None,
-                 debug: bool = False):
+                 debug: bool = False,
+                 profile: bool = False):
         super().__init__(
             logger=logger,
             debug=debug)
         self.functions = functions
         self.pass_down_logger_and_debug_flag()
+        # for profiling
+        self.profile = profile
+        self.func_to_times = {type(func).__name__: [] for func in functions}
 
     def __call__(self, text: str, **kwargs) -> str:
         for fn in self.functions:
+            a = time.time()
             text = fn(text, **kwargs)
+            b = time.time()
             if self.debug:
                 self.debug_message(text, fn)
+            if self.profile:
+                self.func_to_times[type(fn).__name__].append(b - a)
         return text
 
 

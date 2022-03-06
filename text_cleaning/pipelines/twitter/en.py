@@ -13,7 +13,8 @@ class TwitterEnglishTextCleaningPipeline(TextCleaningPipeline):
                  standardization_rules: Optional[Dict[str, List[str]]] = None,
                  mentions_replacement: str = repl.MENTION,
                  logger=None,
-                 debug: bool = False):
+                 debug: bool = False,
+                 profile: bool = False):
         super().__init__(
             functions=[
                 text_fx.NormalizeWhitespace(),
@@ -26,7 +27,8 @@ class TwitterEnglishTextCleaningPipeline(TextCleaningPipeline):
                 text_fx.LowerCase(),
             ],
             logger=logger,
-            debug=debug)
+            debug=debug,
+            profile=profile)
 
 
 class TwitterEnglishTokensCleaningPipeline(TokensCleaningPipeline):

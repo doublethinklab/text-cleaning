@@ -2,9 +2,6 @@
 Untitled.ipynb
 temp/
 
-# proprietary LIWC dictionaries must not be uploaded
-common/nlp/lexicons/liwc/proprietary/
-
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[cod]
