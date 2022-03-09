@@ -24,5 +24,5 @@ setuptools.setup(
     description='Text cleaning utilities, functions, and pipelines.',
     url=f'https://github.com/doublethinklab/text-cleaning.git#{version}',
     packages=setuptools.find_packages(),
-    python_requires='>=3.9',
+    python_requires='>=3.8',
     install_requires=required)
