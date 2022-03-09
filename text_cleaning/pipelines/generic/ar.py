@@ -38,7 +38,7 @@ class ArabicTokensCleaningPipeline(TokensCleaningPipeline):
                  split_only_numbers: bool = True,
                  too_many_numbers_ratio_threshold: float = 0.5,
                  too_many_numbers_length_threshold: int = 3,
-                #  short_token_exceptions: List[str] = ['a'],
+                 short_token_exceptions: List[str] = ['a'],
                  logger=None,
                  debug: bool = False):
         super().__init__(
