@@ -1,9 +1,7 @@
 import unittest
 from typing import Dict
 
-from text_cleaning.pipelines.twitter import \
-    TwitterEnglishTextCleaningPipeline, \
-    TwitterEnglishTokensCleaningPipeline
+from text_cleaning.pipelines.twitter.en import *
 
 
 class TestTwitterCleaningPipelines(unittest.TestCase):
@@ -19,9 +17,9 @@ class TestTwitterCleaningPipelines(unittest.TestCase):
             'worldhealthorganization': ['WHO', 'W.H.O.',
                                         'World Health Organization'],
         }
-        self.clean_text = TwitterEnglishTextCleaningPipeline(
+        self.clean_text = CleanEnglishTwitterText(
             standardization_rules=self.rules, debug=False)
-        self.clean_tokens = TwitterEnglishTokensCleaningPipeline(debug=False)
+        self.clean_tokens = CleanEnglishTwitterTokens(debug=False)
 
     def _test(self, sample: Dict):
         text = self.clean_text(sample['tweet'])

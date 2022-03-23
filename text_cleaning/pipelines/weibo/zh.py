@@ -7,7 +7,7 @@ from text_cleaning.pipelines.base import \
     TextCleaningPipeline, TokensCleaningPipeline
 
 
-class CleanMandarinTwitterText(TextCleaningPipeline):
+class CleanMandarinWeiboText(TextCleaningPipeline):
 
     def __init__(self,
                  standardization_rules: Optional[Dict[str, List[str]]] = None,
@@ -15,6 +15,7 @@ class CleanMandarinTwitterText(TextCleaningPipeline):
                  debug: bool = False):
         super().__init__(
             functions=[
+                text_fx.RemoveHtml(),
                 text_fx.NormalizeWhitespace(),
                 text_fx.SingleNewlineToSpace(),
                 # NOTE: include English so proper names aren't broken
@@ -26,7 +27,7 @@ class CleanMandarinTwitterText(TextCleaningPipeline):
             debug=debug)
 
 
-class CleanMandarinTwitterTokens(TokensCleaningPipeline):
+class CleanMandarinWeiboTokens(TokensCleaningPipeline):
 
     def __init__(self,
                  numbers_replacement: str = repl.NUMBER,

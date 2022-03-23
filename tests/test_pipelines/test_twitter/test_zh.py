@@ -1,9 +1,7 @@
 import unittest
 from typing import Dict
 
-from text_cleaning.pipelines.twitter import \
-    TwitterMandarinTextCleaningPipeline, \
-    TwitterMandarinTokensCleaningPipeline
+from text_cleaning.pipelines.twitter.zh import *
 
 
 class TestTwitterMandarinTextCleaningPipeline(unittest.TestCase):
@@ -12,9 +10,8 @@ class TestTwitterMandarinTextCleaningPipeline(unittest.TestCase):
         self.rules = {
 
         }
-        self.clean_text = TwitterMandarinTextCleaningPipeline(
+        self.clean_text = CleanMandarinTwitterText(
             standardization_rules=self.rules,
-            trad2simp=True,
             debug=False)
 
     def _test(self, sample: Dict):
@@ -35,7 +32,7 @@ class TestTwitterMandarinTextCleaningPipeline(unittest.TestCase):
 class TestTwitterMandarinTokensCleaningPipeline(unittest.TestCase):
 
     def setUp(self):
-        self.clean_tokens = TwitterMandarinTokensCleaningPipeline()
+        self.clean_tokens = CleanMandarinTwitterTokens()
 
     def _test(self, sample: Dict):
         tokens = self.clean_tokens(sample['tokens'])
@@ -66,8 +63,8 @@ text_data = [
     {
         'tweet': '「大國建造」走進香港迪士尼 迪士尼盼迎來更多大灣區遊客 '
                  'https://t.co/KAajTmJG04',
-        'expected': '「大国建造」走进香港迪士尼 迪士尼盼迎来更多大湾区游客 '
-                    'https://t.co/KAajTmJG04'
+        'expected': '「大國建造」走進香港迪士尼 迪士尼盼迎來更多大灣區遊客'
+                    ' https://t.co/KAajTmJG04'
     },
 ]
 tokens_data = [
