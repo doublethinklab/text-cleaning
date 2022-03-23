@@ -7,7 +7,7 @@ from text_cleaning.pipelines.base import \
     TextCleaningPipeline, TokensCleaningPipeline
 
 
-class FacebookMandarinTextCleaningPipeline(TextCleaningPipeline):
+class CleanMandarinFacebookText(TextCleaningPipeline):
 
     def __init__(self,
                  standardization_rules: Optional[Dict[str, List[str]]] = None,
@@ -26,7 +26,7 @@ class FacebookMandarinTextCleaningPipeline(TextCleaningPipeline):
             debug=debug)
 
 
-class FacebookMandarinTokensCleaningPipeline(TokensCleaningPipeline):
+class CleanMandarinFacebookTokens(TokensCleaningPipeline):
 
     def __init__(self,
                  numbers_replacement: str = repl.NUMBER,
