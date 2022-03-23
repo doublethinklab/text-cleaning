@@ -7,7 +7,7 @@ from text_cleaning.pipelines.base import \
     TextCleaningPipeline, TokensCleaningPipeline
 
 
-class TwitterEnglishTextCleaningPipeline(TextCleaningPipeline):
+class CleanEnglishTwitterText(TextCleaningPipeline):
 
     def __init__(self,
                  standardization_rules: Optional[Dict[str, List[str]]] = None,
@@ -29,7 +29,7 @@ class TwitterEnglishTextCleaningPipeline(TextCleaningPipeline):
             debug=debug)
 
 
-class TwitterEnglishTokensCleaningPipeline(TokensCleaningPipeline):
+class CleanEnglishTwitterTokens(TokensCleaningPipeline):
 
     def __init__(self,
                  min_token_length: int = 2,

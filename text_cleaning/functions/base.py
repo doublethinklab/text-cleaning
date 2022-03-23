@@ -20,7 +20,6 @@ class Clean(ABC):
         return matches
 
     def replace_all(self, regex: str, text: str, replacement: str) -> str:
-        assert '(?P<target>' in regex
         matches = self.look_for_matches(regex, text)
         while len(matches) > 0:
             match = matches[0]

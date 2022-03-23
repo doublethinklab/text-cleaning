@@ -7,6 +7,8 @@ from text_cleaning.functions.text.garbage import \
     ReplaceGarbage
 from text_cleaning.functions.text.hashtags import \
     RemoveHashtags
+from text_cleaning.functions.text.html import \
+    RemoveHtml
 from text_cleaning.functions.text.lowercase import \
     LowerCase
 from text_cleaning.functions.text.mentions import \
