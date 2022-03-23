@@ -11,7 +11,6 @@ class CleanMandarinTwitterText(TextCleaningPipeline):
 
     def __init__(self,
                  standardization_rules: Optional[Dict[str, List[str]]] = None,
-                 mentions_replacement: str = repl.MENTION,
                  logger=None,
                  debug: bool = False):
         super().__init__(

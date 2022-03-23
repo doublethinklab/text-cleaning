@@ -11,7 +11,6 @@ class FacebookMandarinTextCleaningPipeline(TextCleaningPipeline):
 
     def __init__(self,
                  standardization_rules: Optional[Dict[str, List[str]]] = None,
-                 mentions_replacement: str = repl.MENTION,
                  logger=None,
                  debug: bool = False):
         super().__init__(
@@ -21,7 +20,6 @@ class FacebookMandarinTextCleaningPipeline(TextCleaningPipeline):
                 # NOTE: include English so proper names aren't broken
                 text_fx.RemoveGarbage(languages=[lang.zh_tw, lang.zh_cn,
                                                  lang.en_us]),
-                text_fx.ReplaceMentions(replacement=mentions_replacement),
                 text_fx.StandardizeText(rules=standardization_rules),
             ],
             logger=logger,
