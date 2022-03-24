@@ -1,5 +1,5 @@
 import re
-from typing import List, Union
+from typing import Dict, List, Union
 
 from text_cleaning import chars
 
@@ -44,9 +44,34 @@ hashtag = re.compile(r'([\s%s]|^)(?P<target>#[\w\d]+#?)([\s%s]|$)'
 url = re.compile(r_url)
 
 
-def extract_matches(text: str, regexp: Union[str, re.Pattern]) -> List[str]:
-    return [m.groupdict()['target'] for m in re.finditer(regexp, text)]
+def extract_matches(
+        text: str,
+        regexp: Union[str, re.Pattern],
+        span_ix: int = 0
+) -> List[Dict]:
+    matches = []
+    for m in re.finditer(regexp, text):
+        text = m.groupdict()['target']
+        start, end = m.span(span_ix)
+        matches.append({
+            'text': text,
+            'start': start,
+            'end': end,
+        })
+    return matches
 
 
 def matches_target(token: str, regexp: Union[str, re.Pattern]) -> bool:
     return re.match(regexp, token) is not None
+
+
+def extract_mentions(text: str) -> List[Dict]:
+    return extract_matches(text, mention, span_ix=2)
+
+
+def extract_hashtags(text: str) -> List[Dict]:
+    return extract_matches(text, hashtag, span_ix=2)
+
+
+def extract_urls(text: str) -> List[Dict]:
+    return extract_matches(text, url, span_ix=1)

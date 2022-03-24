@@ -40,7 +40,6 @@ class CleanMandarinNewsMediaTokens(TokensCleaningPipeline):
                  debug: bool = False):
         super().__init__(
             functions=[
-                tokens_fx.RemoveUrls(),
                 tokens_fx.RemovePunctuation(exclude_hashtags=True),
                 tokens_fx.ReplaceNumbers(
                     replacement=numbers_replacement,

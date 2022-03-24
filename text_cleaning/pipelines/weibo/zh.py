@@ -41,7 +41,6 @@ class CleanMandarinWeiboTokens(TokensCleaningPipeline):
                  debug: bool = False):
         super().__init__(
             functions=[
-                tokens_fx.RemoveUrls(),
                 tokens_fx.RemovePunctuation(
                     exclude_hashtags=True,
                     exclude_mentions=True),
