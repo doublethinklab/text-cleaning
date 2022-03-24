@@ -1,4 +1,5 @@
 import re
+from typing import Union
 
 from text_cleaning import chars
 
@@ -8,3 +9,10 @@ punctuation = re.compile(r'[%s]' % re.escape(chars.punctuation))
 mention = re.compile(r'([\s%s]|^)(?P<target>@[\w]+)([\s%s]|$)' \
           % (re.escape(chars.punctuation), re.escape(chars.punctuation)))
 html = re.compile(r'<.*?>')
+hashtag = re.compile(r'([\s%s]|^)(?P<target>#[\w\d]+#?)([\s%s]|$)'
+                     % (re.escape(chars.punctuation),
+                        re.escape(chars.punctuation)))
+
+
+def extract_matches(text: str, regexp: Union[str, re.Pattern]):
+    return  [m.groupdict()['target'] for m in re.finditer(regexp, text)]
