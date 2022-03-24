@@ -41,3 +41,20 @@ class TestCleanMandarinWeiboText(unittest.TestCase):
                    '视频作者B站up @Director_鹤唳云端 ） ' \
                    '帝吧官微的微博视频'
         self.assertEqual(expected, result)
+
+
+class TestCleanMandarinWeiboTokens(unittest.TestCase):
+
+    def setUp(self) -> None:
+        self.clean = CleanMandarinWeiboTokens()
+
+    def test_hashtags_intact(self):
+        tokens = [
+            '中国', '历史', '年表', '超燃', '影视化', '混剪', '！',
+            '#新中国成立70周年#'
+        ]
+        result = self.clean(tokens)
+        expected = [
+            '中国', '历史', '年表', '超燃', '影视化', '混剪', '#新中国成立70周年'
+        ]
+        self.assertEqual(expected, result)

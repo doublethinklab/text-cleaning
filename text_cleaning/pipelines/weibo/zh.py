@@ -41,7 +41,7 @@ class CleanMandarinWeiboTokens(TokensCleaningPipeline):
         super().__init__(
             functions=[
                 tokens_fx.RemoveUrls(),
-                tokens_fx.RemovePunctuation(),
+                tokens_fx.RemovePunctuation(keep_hashtags=True),
                 tokens_fx.ReplaceNumbers(
                     replacement=numbers_replacement,
                     digit_threshold=numbers_replacement_digit_threshold,
@@ -51,6 +51,7 @@ class CleanMandarinWeiboTokens(TokensCleaningPipeline):
                     replacement=numbers_replacement,
                     ratio_threshold=too_many_numbers_ratio_threshold,
                     length_threshold=too_many_numbers_length_threshold),
+                tokens_fx.NormalizeHashtags(),
             ],
             logger=logger,
             debug=debug)

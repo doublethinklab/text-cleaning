@@ -1,4 +1,3 @@
-import re
 import unittest
 
 from text_cleaning import regexps

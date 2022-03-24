@@ -9,9 +9,14 @@ from text_cleaning.functions.base import ReplaceInTokens
 
 class RemovePunctuation(ReplaceInTokens):
 
-    def __init__(self):
+    def __init__(self, keep_hashtags: bool = False):
         super().__init__(replacement='')
-        self.regex = regexps.punctuation
+        self.keep_hashtags = keep_hashtags
+        self.regex = regexps.r_punctuation
+        if self.keep_hashtags:
+            self.regex = self.regex.replace('\#', '')
+            self.regex = self.regex.replace('#', '')
+        self.regex = re.compile(self.regex)
 
     def clean(self,
               tokens: List[Token],

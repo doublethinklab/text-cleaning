@@ -42,7 +42,7 @@ class ReplaceGarbage(ReplaceInText):
         regex += re.escape(chars.punctuation)
         regex += chars.digits
         regex += '\s+]'
-        return regex
+        return re.compile(regex)
 
     def clean(self, text: str, **kwargs) -> str:
         return re.sub(self.regex, self.replacement, text)

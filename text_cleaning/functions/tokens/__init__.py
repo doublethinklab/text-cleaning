@@ -1,5 +1,7 @@
 from text_cleaning.functions.tokens.either_slash import \
     ReplaceEitherSlashWithSpace
+from text_cleaning.functions.tokens.hashtags import \
+    NormalizeHashtags
 from text_cleaning.functions.tokens.hyphen_compound import \
     ReplaceHyphenCompoundWithSpace
 from text_cleaning.functions.tokens.numbers import \
