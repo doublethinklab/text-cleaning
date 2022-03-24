@@ -1,5 +1,5 @@
 import re
-from typing import Union
+from typing import List, Union
 
 from text_cleaning import chars
 
@@ -14,5 +14,9 @@ hashtag = re.compile(r'([\s%s]|^)(?P<target>#[\w\d]+#?)([\s%s]|$)'
                         re.escape(chars.punctuation)))
 
 
-def extract_matches(text: str, regexp: Union[str, re.Pattern]):
-    return  [m.groupdict()['target'] for m in re.finditer(regexp, text)]
+def extract_matches(text: str, regexp: Union[str, re.Pattern]) -> List[str]:
+    return [m.groupdict()['target'] for m in re.finditer(regexp, text)]
+
+
+def matches_target(token: str, regexp: Union[str, re.Pattern]) -> bool:
+    return re.match(regexp, token) is not None
