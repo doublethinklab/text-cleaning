@@ -16,3 +16,12 @@ class TestMatchingHashtags(unittest.TestCase):
         matches = [regexps.matches_target(t, regexps.hashtag) for t in tokens]
         expected = [False, False, True, False, True]
         self.assertEqual(expected, matches)
+
+
+class TestUrlExtraction(unittest.TestCase):
+
+    def test_case_1(self):
+        text = '阅读报道：https://t.co/3kuwsdfQiA https://t.co/wmxtuqGqf8'
+        matches = regexps.extract_matches(text, regexps.url)
+        expected = ['https://t.co/3kuwsdfQiA', 'https://t.co/wmxtuqGqf8']
+        self.assertEqual(expected, matches)

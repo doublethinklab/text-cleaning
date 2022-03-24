@@ -1,6 +1,7 @@
 import unittest
 from typing import Dict
 
+from text_cleaning import replacements
 from text_cleaning.pipelines.twitter.zh import *
 
 
@@ -10,19 +11,26 @@ class TestTwitterMandarinTextCleaningPipeline(unittest.TestCase):
         self.rules = {
 
         }
-        self.clean_text = CleanMandarinTwitterText(
+        self.clean = CleanMandarinTwitterText(
             standardization_rules=self.rules,
             debug=False)
 
     def _test(self, sample: Dict):
-        text = self.clean_text(sample['tweet'])
+        text = self.clean(sample['tweet'])
         self.assertEqual(sample['expected'], text)
 
-    def test_urls_not_destroyed_by_cleanup_garbage(self):
+    def test_urls_replaced(self):
         text = '「大國建造」走進香港迪士尼 迪士尼盼迎來更多大灣區遊客 ' \
                'https://t.co/KAajTmJG04'
-        text = self.clean_text(text)
-        self.assertIn('https://t.co/KAajTmJG04', text)
+        text = self.clean(text)
+        self.assertNotIn('https://t.co/kaajtmjg04', text)
+        self.assertIn(replacements.URL, text)
+
+    def test_mentions_kept_intact(self):
+        text = '敬请今晚在 @ABCTV 收看《驻外记者》@ForeignOfficial 之《中国的未来》。'
+        result = self.clean(text)
+        self.assertIn('@abctv', result)
+        self.assertIn('@foreignofficial', result)
 
     def test_samples(self):
         for sample in text_data:
@@ -32,15 +40,20 @@ class TestTwitterMandarinTextCleaningPipeline(unittest.TestCase):
 class TestTwitterMandarinTokensCleaningPipeline(unittest.TestCase):
 
     def setUp(self):
-        self.clean_tokens = CleanMandarinTwitterTokens()
+        self.clean = CleanMandarinTwitterTokens()
 
     def _test(self, sample: Dict):
-        tokens = self.clean_tokens(sample['tokens'])
+        tokens = self.clean(sample['tokens'])
         if tokens != sample['expected']:
             print('-' * 8)
             print(sample['expected'])
             print(tokens)
         self.assertEqual(sample['expected'], tokens)
+
+    def test_mentions_kept_intact(self):
+        tokens = ['@abctv', '@foreignofficial']
+        result = self.clean(tokens)
+        self.assertEqual(tokens, result)
 
     def test_samples(self):
         for sample in tokens_data:
@@ -58,23 +71,24 @@ text_data = [
                  '深化全球发展伙伴关系，构建全球发展命运共同体。发达国家要切实履行发展援助'
                  '承诺，为发展中国家提供更多资源。中方提出的全球发展倡议将同联合国2030年'
                  '可持续发展议程深入对接，共同推进全球发展事业。 '
-                 'https://t.co/jlXpLynHW0'
+                 '%s' % replacements.URL
     },
     {
         'tweet': '「大國建造」走進香港迪士尼 迪士尼盼迎來更多大灣區遊客 '
                  'https://t.co/KAajTmJG04',
         'expected': '「大國建造」走進香港迪士尼 迪士尼盼迎來更多大灣區遊客'
-                    ' https://t.co/KAajTmJG04'
+                    ' %s' % replacements.URL
     },
 ]
 tokens_data = [
     {
         'tokens': [
             '习近平', '指出', '，', '要', '坚持', '互利共赢', '，',
-            '构筑', '伙伴', '关系', '。', 'https://t.co/jlXpLynHW0',
+            '构筑', '伙伴', '关系', '。', replacements.URL,
         ],
         'expected': [
             '习近平', '指出', '要', '坚持', '互利共赢', '构筑', '伙伴', '关系',
+            replacements.URL,
         ],
     },
     {

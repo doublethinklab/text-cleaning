@@ -16,11 +16,12 @@ class CleanMandarinFacebookText(TextCleaningPipeline):
         super().__init__(
             functions=[
                 text_fx.NormalizeWhitespace(),
-                text_fx.SingleNewlineToSpace(),
+                text_fx.ReplaceUrls(),
                 # NOTE: include English so proper names aren't broken
                 text_fx.RemoveGarbage(languages=[lang.zh_tw, lang.zh_cn,
                                                  lang.en_us]),
                 text_fx.StandardizeText(rules=standardization_rules),
+                text_fx.LowerCase(),
             ],
             logger=logger,
             debug=debug)
@@ -40,7 +41,9 @@ class CleanMandarinFacebookTokens(TokensCleaningPipeline):
         super().__init__(
             functions=[
                 tokens_fx.RemoveUrls(),
-                tokens_fx.RemovePunctuation(keep_hashtags=True),
+                tokens_fx.RemovePunctuation(
+                    exclude_hashtags=True,
+                    exclude_mentions=True),
                 tokens_fx.ReplaceNumbers(
                     replacement=numbers_replacement,
                     digit_threshold=numbers_replacement_digit_threshold,

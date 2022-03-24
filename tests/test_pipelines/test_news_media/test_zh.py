@@ -3,7 +3,6 @@ import unittest
 from text_cleaning.pipelines.news_media.zh import *
 
 
-
 class TestCleanMandarinNewsMediaText(unittest.TestCase):
 
     def setUp(self):
@@ -53,7 +52,7 @@ class TestCleanMandarinNewsMediaText(unittest.TestCase):
                '再加上今年年底即將舉行中共二十大，至少今年，' \
                '習在俄烏衝突上將持續觀望態度，不會輕易出手。'
         result = self.clean(text)
-        self.assertIn('Alexei Kudrin', result)
+        self.assertIn('alexei kudrin', result)
 
     def test_whitespace_normalized(self):
            text = '人民网北京3月1日电 （记者王连香）近日，交通运输部、国家铁路局、' \
