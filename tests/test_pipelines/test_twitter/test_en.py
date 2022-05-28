@@ -17,12 +17,13 @@ class TestTwitterCleaningPipelines(unittest.TestCase):
             'worldhealthorganization': ['WHO', 'W.H.O.',
                                         'World Health Organization'],
         }
-        self.clean_text = CleanEnglishTwitterText(
-            standardization_rules=self.rules, debug=False)
+        self.clean_text = CleanEnglishTwitterText(debug=False)
         self.clean_tokens = CleanEnglishTwitterTokens(debug=False)
 
     def _test(self, sample: Dict):
-        text = self.clean_text(sample['tweet'])
+        text = self.clean_text(
+            sample['tweet'],
+            standardization_rules=self.rules)
         tokens = text.split(' ')
         tokens = self.clean_tokens(tokens)
         if tokens != sample['expected']:

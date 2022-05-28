@@ -19,11 +19,12 @@ class TestJapaneseTextCleaningPipelines(unittest.TestCase):
             'worldhealthorganization': ['WHO', 'W.H.O.',
                                         'World Health Organization'],
         }
-        self.clean_text = JapaneseTextCleaningPipeline(
-            standardization_rules=self.rules, debug=False)
+        self.clean_text = JapaneseTextCleaningPipeline(debug=False)
 
     def _test(self, sample: Dict):
-        text = self.clean_text(sample['text'])
+        text = self.clean_text(
+            sample['text'],
+            standardization_rules=self.rules)
         self.assertEqual(sample['expected'], text)
 
     # def test_urls_not_destroyed_by_remove_garbage(self):

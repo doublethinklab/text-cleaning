@@ -10,7 +10,6 @@ from text_cleaning.pipelines.base import \
 class CleanMandarinFacebookText(TextCleaningPipeline):
 
     def __init__(self,
-                 standardization_rules: Optional[Dict[str, List[str]]] = None,
                  logger=None,
                  debug: bool = False):
         super().__init__(
@@ -20,7 +19,7 @@ class CleanMandarinFacebookText(TextCleaningPipeline):
                 # NOTE: include English so proper names aren't broken
                 text_fx.RemoveGarbage(languages=[lang.zh_tw, lang.zh_cn,
                                                  lang.en_us]),
-                text_fx.StandardizeText(rules=standardization_rules),
+                text_fx.StandardizeText(),
                 text_fx.LowerCase(),
             ],
             logger=logger,

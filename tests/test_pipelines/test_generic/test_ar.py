@@ -19,12 +19,13 @@ class TestArabicTextCleaningPipelines(unittest.TestCase):
             'worldhealthorganization': ['WHO', 'W.H.O.',
                                         'World Health Organization'],
         }
-        self.clean_text = ArabicTextCleaningPipeline(
-            standardization_rules=self.rules, debug=False)
+        self.clean_text = ArabicTextCleaningPipeline(debug=False)
         # self.clean_tokens = ArabicTokensCleaningPipeline(debug=False)
 
     def _test(self, sample: Dict):
-        text = self.clean_text(sample['text'])
+        text = self.clean_text(
+            sample['text'],
+            standardization_rules=self.rules)
         self.assertEqual(sample['expected'], text)
 
     def test_samples(self):

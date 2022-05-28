@@ -10,7 +10,6 @@ from text_cleaning.pipelines.base import \
 class ChineseTextCleaningPipeline(TextCleaningPipeline):
 
     def __init__(self,
-                 standardization_rules: Optional[Dict[str, List[str]]] = None,
                  logger=None,
                  debug: bool = False):
         super().__init__(
@@ -19,7 +18,7 @@ class ChineseTextCleaningPipeline(TextCleaningPipeline):
                 text_fx.NormalizeWhitespace(),
                 text_fx.RemoveGarbage(languages=[
                     lang.zh_cn, lang.zh_tw, lang.en_us]),
-                text_fx.StandardizeText(rules=standardization_rules),
+                text_fx.StandardizeText(),
                 text_fx.LowerCase(),
             ],
             logger=logger,

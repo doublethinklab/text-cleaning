@@ -10,7 +10,6 @@ from text_cleaning.pipelines.base import \
 class CleanEnglishTwitterText(TextCleaningPipeline):
 
     def __init__(self,
-                 standardization_rules: Optional[Dict[str, List[str]]] = None,
                  mentions_replacement: str = repl.MENTION,
                  logger=None,
                  debug: bool = False):
@@ -22,7 +21,7 @@ class CleanEnglishTwitterText(TextCleaningPipeline):
                 # NOTE: include Spanish so proper names aren't broken
                 text_fx.RemoveGarbage(languages=[lang.en_us, lang.es_es]),
                 text_fx.ReplaceMentions(replacement=mentions_replacement),
-                text_fx.StandardizeText(rules=standardization_rules),
+                text_fx.StandardizeText(),
                 text_fx.LowerCase(),
             ],
             logger=logger,

@@ -10,7 +10,6 @@ from text_cleaning.pipelines.base import \
 class ArabicTextCleaningPipeline(TextCleaningPipeline):
 
     def __init__(self,
-                 standardization_rules: Optional[Dict[str, List[str]]] = None,
                  mentions_replacement: str = repl.MENTION,
                  logger=None,
                  debug: bool = False):
@@ -21,7 +20,7 @@ class ArabicTextCleaningPipeline(TextCleaningPipeline):
                 text_fx.RemoveTrailingApostropheS(),
                 text_fx.RemoveGarbage(languages=[lang.en_us, lang.ar_ae]),
                 # text_fx.ReplaceMentions(replacement=mentions_replacement),
-                text_fx.StandardizeText(rules=standardization_rules),
+                text_fx.StandardizeText(),
                 # text_fx.LowerCase(),
             ],
             logger=logger,

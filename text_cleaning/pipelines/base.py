@@ -1,5 +1,5 @@
 from abc import ABC
-from typing import Callable, List, Type, Union
+from typing import Callable, Dict, List, Optional, Type, Union
 
 from data_structures.nlp import Token
 
@@ -55,9 +55,17 @@ class TextCleaningPipeline(CleaningPipeline):
         self.functions = functions
         self.pass_down_logger_and_debug_flag()
 
-    def __call__(self, text: str, **kwargs) -> str:
+    def __call__(
+            self,
+            text: str,
+            standardization_rules: Optional[Dict[str, List[str]]] = None,
+            **kwargs
+    ) -> str:
         for fn in self.functions:
-            text = fn(text, **kwargs)
+            text = fn(
+                text,
+                standardization_rules=standardization_rules,
+                **kwargs)
             if self.debug:
                 self.debug_message(text, fn)
         return text

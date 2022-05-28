@@ -11,9 +11,7 @@ class TestTwitterMandarinTextCleaningPipeline(unittest.TestCase):
         self.rules = {
 
         }
-        self.clean = CleanMandarinTwitterText(
-            standardization_rules=self.rules,
-            debug=False)
+        self.clean = CleanMandarinTwitterText(debug=False)
 
     def _test(self, sample: Dict):
         text = self.clean(sample['tweet'])

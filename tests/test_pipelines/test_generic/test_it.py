@@ -19,12 +19,13 @@ class TestItalianCleaningPipelines(unittest.TestCase):
             'worldhealthorganization': ['WHO', 'W.H.O.',
                                         'World Health Organization'],
         }
-        self.clean_text = ItalianTextCleaningPipeline(
-            standardization_rules=self.rules, debug=False)
+        self.clean_text = ItalianTextCleaningPipeline(debug=False)
         self.clean_tokens = ItalianTokensCleaningPipeline(debug=False)
 
     def _test(self, sample: Dict):
-        text = self.clean_text(sample['text'])
+        text = self.clean_text(
+            sample['text'],
+            standardization_rules=self.rules)
         tokens = text.split(' ')
         tokens = self.clean_tokens(tokens)
         if tokens != sample['expected']:
