@@ -7,7 +7,7 @@ from text_cleaning.pipelines.base import \
     TextCleaningPipeline, TokensCleaningPipeline
 
 
-class CleanMandarinNewsMediaText(TextCleaningPipeline):
+class CleanChineseNewsMediaText(TextCleaningPipeline):
 
     def __init__(self,
                  logger=None,
@@ -26,7 +26,7 @@ class CleanMandarinNewsMediaText(TextCleaningPipeline):
             debug=debug)
 
 
-class CleanMandarinNewsMediaTokens(TokensCleaningPipeline):
+class CleanChineseNewsMediaTokens(TokensCleaningPipeline):
 
     def __init__(self,
                  numbers_replacement: str = repl.NUMBER,

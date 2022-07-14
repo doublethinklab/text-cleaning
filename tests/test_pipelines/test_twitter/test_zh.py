@@ -11,7 +11,7 @@ class TestTwitterMandarinTextCleaningPipeline(unittest.TestCase):
         self.rules = {
 
         }
-        self.clean = CleanMandarinTwitterText(debug=False)
+        self.clean = CleanChineseTwitterText(debug=False)
 
     def _test(self, sample: Dict):
         text = self.clean(sample['tweet'])
@@ -38,7 +38,7 @@ class TestTwitterMandarinTextCleaningPipeline(unittest.TestCase):
 class TestTwitterMandarinTokensCleaningPipeline(unittest.TestCase):
 
     def setUp(self):
-        self.clean = CleanMandarinTwitterTokens()
+        self.clean = CleanChineseTwitterTokens()
 
     def _test(self, sample: Dict):
         tokens = self.clean(sample['tokens'])

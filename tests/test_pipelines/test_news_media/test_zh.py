@@ -6,7 +6,7 @@ from text_cleaning.pipelines.news_media.zh import *
 class TestCleanMandarinNewsMediaText(unittest.TestCase):
 
     def setUp(self):
-        self.clean = CleanMandarinNewsMediaText()
+        self.clean = CleanChineseNewsMediaText()
 
     def test_english_names_preserved(self):
         text = '俄羅斯入侵烏克蘭4天後，西方國家終於拿出像樣的經濟制裁手段，2月27日，' \

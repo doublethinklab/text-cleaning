@@ -6,7 +6,7 @@ from text_cleaning.pipelines.weibo.zh import *
 class TestCleanMandarinWeiboText(unittest.TestCase):
 
     def setUp(self):
-        self.clean = CleanMandarinWeiboText()
+        self.clean = CleanChineseWeiboText()
 
     def test_html_removed(self):
         text = '五千年史诗！10分钟从上古之战到溥仪退位，中国历史年表超燃影视化混剪！' \
@@ -46,7 +46,7 @@ class TestCleanMandarinWeiboText(unittest.TestCase):
 class TestCleanMandarinWeiboTokens(unittest.TestCase):
 
     def setUp(self) -> None:
-        self.clean = CleanMandarinWeiboTokens()
+        self.clean = CleanChineseWeiboTokens()
 
     def test_hashtags_intact_and_normalized(self):
         tokens = [
