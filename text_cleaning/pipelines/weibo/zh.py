@@ -7,7 +7,7 @@ from text_cleaning.pipelines.base import \
     TextCleaningPipeline, TokensCleaningPipeline
 
 
-class CleanMandarinWeiboText(TextCleaningPipeline):
+class CleanChineseWeiboText(TextCleaningPipeline):
 
     def __init__(self,
                  logger=None,
@@ -27,7 +27,7 @@ class CleanMandarinWeiboText(TextCleaningPipeline):
             debug=debug)
 
 
-class CleanMandarinWeiboTokens(TokensCleaningPipeline):
+class CleanChineseWeiboTokens(TokensCleaningPipeline):
 
     def __init__(self,
                  numbers_replacement: str = repl.NUMBER,
