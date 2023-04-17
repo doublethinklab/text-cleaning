@@ -2,15 +2,17 @@ from typing import Tuple
 
 from text_cleaning import errors, genres, languages
 from text_cleaning.pipelines.facebook \
-    import zh as facebook_zh
+    import en as facebook_en, zh as facebook_zh
 from text_cleaning.pipelines.generic \
-    import zh as generic_zh
+    import en as generic_en, zh as generic_zh
 from text_cleaning.pipelines.news_media \
-    import zh as news_media_zh
+    import en as news_media_en, zh as news_media_zh
 from text_cleaning.pipelines.twitter \
     import en as twitter_en, zh as twitter_zh
 from text_cleaning.pipelines.weibo \
     import zh as weibo_zh
+from text_cleaning.pipelines.youtube \
+    import en as youtube_en, zh as youtube_zh
 
 
 def get_pipelines(
@@ -38,20 +40,29 @@ def get_pipelines(
         elif genre == genres.weibo:
             clean_text = weibo_zh.CleanChineseWeiboText()
             clean_tokens = weibo_zh.CleanChineseWeiboTokens()
+        elif genre == genres.youtube:
+            clean_text = youtube_zh.CleanChineseYouTubeText()
+            clean_tokens = youtube_zh.CleanChineseYouTubeTokens()
         else:
             raise ValueError(genre)
     elif language == languages.en:
         if genre == genres.facebook:
-            raise NotImplementedError
+            clean_text = facebook_en.CleanEnglishFacebookText()
+            clean_tokens = facebook_en.CleanEnglishFacebookTokens()
         elif genre == genres.generic:
-            raise NotImplementedError
+            clean_text = generic_en.CleanGenericEnglishText()
+            clean_tokens = generic_en.CleanGenericEnglishTokens()
         elif genre == genres.news_media:
-            raise NotImplementedError
+            clean_text = news_media_en.CleanEnglishNewsMediaText()
+            clean_tokens = news_media_en.CleanEnglishNewsMediaTokens()
         elif genre == genres.twitter:
             clean_text = twitter_en.CleanEnglishTwitterText()
             clean_tokens = twitter_en.CleanEnglishTwitterTokens()
         elif genre == genres.weibo:
             raise ValueError('No such thing as English Weibo.')
+        elif genre == genres.youtube:
+            clean_text = youtube_en.CleanEnglishYouTubeText()
+            clean_tokens = youtube_en.CleanEnglishYouTubeTokens()
         else:
             raise ValueError(genre)
     else:
