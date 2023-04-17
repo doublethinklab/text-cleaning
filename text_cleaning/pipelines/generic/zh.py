@@ -7,7 +7,7 @@ from text_cleaning.pipelines.base import \
     TextCleaningPipeline, TokensCleaningPipeline
 
 
-class ChineseTextCleaningPipeline(TextCleaningPipeline):
+class CleanGenericChineseText(TextCleaningPipeline):
 
     def __init__(self,
                  logger=None,
@@ -25,7 +25,7 @@ class ChineseTextCleaningPipeline(TextCleaningPipeline):
             debug=debug)
 
 
-class ChineseTokensCleaningPipeline(TokensCleaningPipeline):
+class CleanGenericChineseTokens(TokensCleaningPipeline):
 
     def __init__(
             self,

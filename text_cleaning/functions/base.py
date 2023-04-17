@@ -53,17 +53,20 @@ class CleanText(Clean):
 
 class CleanTokens(Clean):
 
-    def __init__(self,
-                 logger=None,
-                 debug: bool = False):
+    def __init__(
+            self,
+            logger=None,
+            debug: bool = False
+    ):
         super().__init__(logger, debug)
 
-    def __call__(self,
-                 tokens: List[Union[Token, str]],
-                 return_strings: bool = True,
-                 copy_meta_attrs_on_split: bool = False,
-                 **kwargs) \
-            -> List[Union[Token, str]]:
+    def __call__(
+            self,
+            tokens: List[Union[Token, str]],
+            return_strings: bool = True,
+            copy_meta_attrs_on_split: bool = False,
+            **kwargs
+    ) -> List[Union[Token, str]]:
         # if no input, just return the input
         if not tokens or len(tokens) == 0:
             return tokens
