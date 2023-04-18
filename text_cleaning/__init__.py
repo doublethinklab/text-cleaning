@@ -1,6 +1,8 @@
 from typing import Tuple
 
 from text_cleaning import errors, genres, languages
+from text_cleaning.pipelines.base \
+    import TextCleaningPipeline, TokensCleaningPipeline
 from text_cleaning.pipelines.facebook \
     import en as facebook_en, zh as facebook_zh
 from text_cleaning.pipelines.generic \

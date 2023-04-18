@@ -1,4 +1,4 @@
-from typing import Dict, List, Optional
+from typing import List
 
 from text_cleaning import languages as lang, replacements as repl
 from text_cleaning.functions import text as text_fx
@@ -9,17 +9,18 @@ from text_cleaning.pipelines.base import \
 
 class CleanEnglishYouTubeText(TextCleaningPipeline):
 
-    def __init__(self,
-                 mentions_replacement: str = repl.MENTION,
-                 logger=None,
-                 debug: bool = False):
+    def __init__(
+            self,
+            mentions_replacement: str = repl.MENTION,
+            logger=None,
+            debug: bool = False
+    ):
         super().__init__(
             functions=[
                 text_fx.NormalizeWhitespace(),
-                text_fx.SingleNewlineToSpace(),
+                text_fx.SingleNewlineToPeriod(language=lang.en),
                 text_fx.RemoveTrailingApostropheS(),
-                # NOTE: include Spanish so proper names aren't broken
-                text_fx.RemoveGarbage(languages=[lang.en_us, lang.es_es]),
+                text_fx.RemoveGarbage(languages=[lang.en]),
                 text_fx.ReplaceMentions(replacement=mentions_replacement),
                 text_fx.StandardizeText(),
                 text_fx.LowerCase(),

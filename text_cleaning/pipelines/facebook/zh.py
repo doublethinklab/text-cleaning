@@ -1,5 +1,3 @@
-from typing import Dict, List, Optional
-
 from text_cleaning import languages as lang, replacements as repl
 from text_cleaning.functions import text as text_fx
 from text_cleaning.functions import tokens as tokens_fx
@@ -16,9 +14,7 @@ class CleanChineseFacebookText(TextCleaningPipeline):
             functions=[
                 text_fx.NormalizeWhitespace(),
                 text_fx.ReplaceUrls(),
-                # NOTE: include English so proper names aren't broken
-                text_fx.RemoveGarbage(languages=[lang.zh_tw, lang.zh_cn,
-                                                 lang.en_us]),
+                text_fx.RemoveGarbage(languages=[lang.zh]),
                 text_fx.StandardizeText(),
                 text_fx.LowerCase(),
             ],

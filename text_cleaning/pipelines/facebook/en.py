@@ -16,10 +16,9 @@ class CleanEnglishFacebookText(TextCleaningPipeline):
         super().__init__(
             functions=[
                 text_fx.NormalizeWhitespace(),
-                text_fx.SingleNewlineToSpace(),
+                text_fx.SingleNewlineToPeriod(language=lang.en),
                 text_fx.RemoveTrailingApostropheS(),
-                # NOTE: include Spanish so proper names aren't broken
-                text_fx.RemoveGarbage(languages=[lang.en_us, lang.es_es]),
+                text_fx.RemoveGarbage(languages=[lang.en]),
                 text_fx.ReplaceMentions(replacement=mentions_replacement),
                 text_fx.StandardizeText(),
                 text_fx.LowerCase(),

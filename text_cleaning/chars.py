@@ -66,10 +66,11 @@ sent_markers = hanzi.stops + '.?!'
 
 # defines sets of acceptable characters
 lang_to_chars = {
-    'zh_cn': zh_chars + en_chars + punctuation + digits,
-    'zh_tw': zh_chars + en_chars + punctuation + digits,
+    # en chars included so proper names aren't broken
+    'zh': zh_chars + en_chars + punctuation + digits,
     'ja': ja_chars + en_chars + punctuation + digits,
-    'en': en_chars + en_chars + punctuation + digits,
+    # adding es chars to en so as not to break proper names
+    'en': en_chars + es_chars + punctuation + digits,
     'es': es_chars + en_chars + punctuation + digits,
     'ar': ar_chars + en_chars + punctuation + digits,
     'fr': fr_chars + en_chars + punctuation + digits,
@@ -77,8 +78,7 @@ lang_to_chars = {
 }
 # defines sets of acceptable punctuation
 lang_to_puncts = {
-    'zh_cn': en_punct + zh_punct,
-    'zh_tw': en_punct + zh_punct,
+    'zh': en_punct + zh_punct,
     'ja': en_punct + zh_punct,
     'en': en_punct,
     'es': en_punct + es_punct,

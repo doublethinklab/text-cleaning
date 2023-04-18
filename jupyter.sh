@@ -1,6 +1,7 @@
 #!/bin/bash
 
 docker run \
+    --platform linux/amd64 \
     --rm \
     -v ${PWD}:/text-cleaning \
     -w /text-cleaning \

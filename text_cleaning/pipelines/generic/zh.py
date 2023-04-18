@@ -1,5 +1,3 @@
-from typing import Dict, List, Optional
-
 from text_cleaning import languages as lang, replacements as repl
 from text_cleaning.functions import text as text_fx
 from text_cleaning.functions import tokens as tokens_fx
@@ -16,8 +14,7 @@ class CleanGenericChineseText(TextCleaningPipeline):
             functions=[
                 text_fx.NormalizeTextWidth(),
                 text_fx.NormalizeWhitespace(),
-                text_fx.RemoveGarbage(languages=[
-                    lang.zh_cn, lang.zh_tw, lang.en_us]),
+                text_fx.RemoveGarbage(languages=[lang.zh]),
                 text_fx.StandardizeText(),
                 text_fx.LowerCase(),
             ],
