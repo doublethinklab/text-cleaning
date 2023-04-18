@@ -25,7 +25,8 @@ from text_cleaning.functions.text.trad2simp import \
     TraditionalToSimplified
 from text_cleaning.functions.text.whitespace import \
     NormalizeWhitespace, \
-    SingleNewlineToSpace
+    SingleNewlineToSpace, \
+    SingleNewlineToPeriod
 from text_cleaning.functions.text.halfwidth import \
     NormalizeTextWidth
 from text_cleaning.functions.text.de_abbreviation import \

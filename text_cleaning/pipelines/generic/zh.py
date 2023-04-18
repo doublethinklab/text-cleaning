@@ -1,5 +1,3 @@
-from typing import Dict, List, Optional
-
 from text_cleaning import languages as lang, replacements as repl
 from text_cleaning.functions import text as text_fx
 from text_cleaning.functions import tokens as tokens_fx
@@ -7,7 +5,7 @@ from text_cleaning.pipelines.base import \
     TextCleaningPipeline, TokensCleaningPipeline
 
 
-class ChineseTextCleaningPipeline(TextCleaningPipeline):
+class CleanGenericChineseText(TextCleaningPipeline):
 
     def __init__(self,
                  logger=None,
@@ -16,8 +14,7 @@ class ChineseTextCleaningPipeline(TextCleaningPipeline):
             functions=[
                 text_fx.NormalizeTextWidth(),
                 text_fx.NormalizeWhitespace(),
-                text_fx.RemoveGarbage(languages=[
-                    lang.zh_cn, lang.zh_tw, lang.en_us]),
+                text_fx.RemoveGarbage(languages=[lang.zh]),
                 text_fx.StandardizeText(),
                 text_fx.LowerCase(),
             ],
@@ -25,7 +22,7 @@ class ChineseTextCleaningPipeline(TextCleaningPipeline):
             debug=debug)
 
 
-class ChineseTokensCleaningPipeline(TokensCleaningPipeline):
+class CleanGenericChineseTokens(TokensCleaningPipeline):
 
     def __init__(
             self,

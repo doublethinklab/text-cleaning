@@ -1,4 +1,4 @@
-from typing import Dict, List, Optional
+from typing import List
 
 from text_cleaning import languages as lang, replacements as repl
 from text_cleaning.functions import text as text_fx
@@ -7,27 +7,29 @@ from text_cleaning.pipelines.base import \
     TextCleaningPipeline, TokensCleaningPipeline
 
 
-class ArabicTextCleaningPipeline(TextCleaningPipeline):
+class CleanEnglishYouTubeText(TextCleaningPipeline):
 
-    def __init__(self,
-                 mentions_replacement: str = repl.MENTION,
-                 logger=None,
-                 debug: bool = False):
+    def __init__(
+            self,
+            mentions_replacement: str = repl.MENTION,
+            logger=None,
+            debug: bool = False
+    ):
         super().__init__(
             functions=[
                 text_fx.NormalizeWhitespace(),
-                text_fx.SingleNewlineToSpace(),
+                text_fx.SingleNewlineToPeriod(language=lang.en),
                 text_fx.RemoveTrailingApostropheS(),
-                text_fx.RemoveGarbage(languages=[lang.en_us, lang.ar_ae]),
-                # text_fx.ReplaceMentions(replacement=mentions_replacement),
+                text_fx.RemoveGarbage(languages=[lang.en]),
+                text_fx.ReplaceMentions(replacement=mentions_replacement),
                 text_fx.StandardizeText(),
-                # text_fx.LowerCase(),
+                text_fx.LowerCase(),
             ],
             logger=logger,
             debug=debug)
 
 
-class ArabicTokensCleaningPipeline(TokensCleaningPipeline):
+class CleanEnglishYouTubeTokens(TokensCleaningPipeline):
 
     def __init__(self,
                  min_token_length: int = 2,
@@ -37,7 +39,7 @@ class ArabicTokensCleaningPipeline(TokensCleaningPipeline):
                  split_only_numbers: bool = True,
                  too_many_numbers_ratio_threshold: float = 0.5,
                  too_many_numbers_length_threshold: int = 3,
-                 short_token_exceptions: List[str] = ['a'],
+                 short_token_exceptions: List[str] = ['i', 'a'],
                  logger=None,
                  debug: bool = False):
         super().__init__(

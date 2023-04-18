@@ -5,11 +5,13 @@ from text_cleaning.pipelines.base import \
     TextCleaningPipeline, TokensCleaningPipeline
 
 
-class CleanChineseFacebookText(TextCleaningPipeline):
+class CleanChineseYouTubeText(TextCleaningPipeline):
 
-    def __init__(self,
-                 logger=None,
-                 debug: bool = False):
+    def __init__(
+            self,
+            logger=None,
+            debug: bool = False
+    ):
         super().__init__(
             functions=[
                 text_fx.NormalizeWhitespace(),
@@ -22,17 +24,19 @@ class CleanChineseFacebookText(TextCleaningPipeline):
             debug=debug)
 
 
-class CleanChineseFacebookTokens(TokensCleaningPipeline):
+class CleanChineseYouTubeTokens(TokensCleaningPipeline):
 
-    def __init__(self,
-                 numbers_replacement: str = repl.NUMBER,
-                 numbers_replacement_digit_threshold: int = 2,
-                 numbers_split_replacement: bool = False,
-                 split_only_numbers: bool = True,
-                 too_many_numbers_ratio_threshold: float = 0.5,
-                 too_many_numbers_length_threshold: int = 3,
-                 logger=None,
-                 debug: bool = False):
+    def __init__(
+            self,
+            numbers_replacement: str = repl.NUMBER,
+            numbers_replacement_digit_threshold: int = 2,
+            numbers_split_replacement: bool = False,
+            split_only_numbers: bool = True,
+            too_many_numbers_ratio_threshold: float = 0.5,
+            too_many_numbers_length_threshold: int = 3,
+            logger=None,
+            debug: bool = False
+    ):
         super().__init__(
             functions=[
                 tokens_fx.RemovePunctuation(

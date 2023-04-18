@@ -1,7 +1,8 @@
 import unittest
 
+from text_cleaning import languages
 from text_cleaning.functions.text import \
-    NormalizeWhitespace, SingleNewlineToSpace
+    NormalizeWhitespace, SingleNewlineToSpace, SingleNewlineToPeriod
 
 
 class TestNormalizeWhitespace(unittest.TestCase):
@@ -43,3 +44,19 @@ enforcement. """
                    'reform implementation and  enforcement.'
         self.assertEqual(expected, cleaned)
 
+
+class TestSingleNewlineToPeriod(unittest.TestCase):
+
+    def test_en_case(self):
+        text = 'This is my text\nHere it is.'
+        clean = SingleNewlineToPeriod(language=languages.en)
+        cleaned = clean(text)
+        expected = 'This is my text. Here it is.'
+        self.assertEqual(expected, cleaned)
+
+    def test_zn_case(self):
+        text = '這是我的句子\n在這喔。'
+        clean = SingleNewlineToPeriod(language=languages.zh)
+        cleaned = clean(text)
+        expected = '這是我的句子。在這喔。'
+        self.assertEqual(expected, cleaned)

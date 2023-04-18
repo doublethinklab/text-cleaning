@@ -12,9 +12,12 @@ class ReplaceGarbage(ReplaceInText):
     their punctuation marks, and digits.
     """
 
-    def __init__(self,
-                 replacement: str = replacements.JUNK,
-                 languages: List[str] = lang.supported_languages):
+    def __init__(
+            self,
+            replacement: str = replacements.JUNK,
+            languages: List[str] = lang.supported_languages
+    ):
+        assert all(l in lang.supported_languages for l in languages)
         super().__init__(replacement=replacement)
         self.languages = languages
         self.regex = self.build_regex(languages)
@@ -22,23 +25,8 @@ class ReplaceGarbage(ReplaceInText):
     @staticmethod
     def build_regex(languages: List[str]):
         regex = '[^'
-        if lang.en_us in languages:
-            regex += chars.en_chars
-        if lang.zh_cn in languages or lang.zh_tw in languages:
-            regex += chars.zh_chars
-        if lang.ja_jp in languages:
-            regex += chars.ja_chars
-        if lang.es_es in languages:
-            regex += chars.es_chars
-            regex += chars.en_chars
-        if lang.ar_ae in languages:
-            regex += chars.ar_chars
-        if lang.fr_fr in languages:
-            regex += chars.en_chars
-            regex += chars.fr_chars
-        if lang.it_it in languages:
-            regex += chars.en_chars
-            regex += chars.it_chars
+        for language in languages:
+            regex += chars.lang_to_chars[language]
         regex += re.escape(chars.punctuation)
         regex += chars.digits
         regex += '\s+]'
@@ -50,6 +38,9 @@ class ReplaceGarbage(ReplaceInText):
 
 class RemoveGarbage(ReplaceGarbage):
 
-    def __init__(self,
-                 languages: List[str] = lang.supported_languages):
+    def __init__(
+            self,
+            languages: List[str] = lang.supported_languages
+    ):
+        assert all(l in lang.supported_languages for l in languages)
         super().__init__(replacement='', languages=languages)
